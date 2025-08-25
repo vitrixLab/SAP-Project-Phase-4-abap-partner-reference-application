@@ -45,6 +45,7 @@ Upcoming versions of the sample application may include additional features prov
 ### Features and Values
 
 Features of the Music Festival Manager include:
+
 - Create, change, publish, and cancel music festival events
 - Maintain, add, and remove visitors
 - Cancel bookings
@@ -108,7 +109,7 @@ This repository is provided "as-is", we don't offer support. For questions and c
 
 ## License
 
-Copyright (c) 2024 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](./LICENSE) file.
+Copyright (c) 2025 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](./LICENSE) file.
 
 ## Disclaimer
 
