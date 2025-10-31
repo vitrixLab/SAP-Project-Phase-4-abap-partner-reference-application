@@ -1,0 +1,2 @@
+sap.ui.require(["sap/fe/test/JourneyRunner","visitors/test/integration/FirstJourney","visitors/test/integration/pages/VisitorList","visitors/test/integration/pages/VisitorObjectPage","visitors/test/integration/pages/VisitsObjectPage"],function(t,i,e,s,r){"use strict";var t=new t({launchUrl:sap.ui.require.toUrl("visitors")+"/index.html"});t.run({pages:{onTheVisitorList:e,onTheVisitorObjectPage:s,onTheVisitsObjectPage:r}},i.run)});
+//# sourceMappingURL=opaTests.qunit.js.map
