@@ -1,9 +1,7 @@
 {
-  "builds": [
-    { /* your builds config */ }
-  ],
-  "buildCommand": "your build cmd",
-  "outputDirectory": "path/to/output",
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "version": 2,
+  "buildCommand": "cd fiori-apps/visitors && npm install && ui5 build --all",
+  "outputDirectory": "fiori-apps/visitors/dist",
   "framework": null
-  /* any other setting */
 }
