@@ -1,0 +1,9 @@
+{
+  "builds": [
+    {
+      "src": "fiori-apps/visitors/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "outputDirectory": "fiori-apps/visitors/dist"
+}
