@@ -1,9 +1,9 @@
 {
   "builds": [
-    {
-      "src": "fiori-apps/visitors/**",
-      "use": "@vercel/static"
-    }
+    { /* your builds config */ }
   ],
-  "outputDirectory": "fiori-apps/visitors/dist"
+  "buildCommand": "your build cmd",
+  "outputDirectory": "path/to/output",
+  "framework": null
+  /* any other setting */
 }
