@@ -4,6 +4,6 @@
   "installCommand": "npm install",
   "buildCommand": "npm run build",
   "outputDirectory": "fiori-apps/visitors/dist",
-  "developmentCommand": "npm run start-mock"
+  "developmentCommand": "npm run start-mock",
   "framework": null
 }
