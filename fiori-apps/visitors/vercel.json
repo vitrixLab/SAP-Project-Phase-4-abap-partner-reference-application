@@ -1,8 +1,8 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "installCommand": "cd fiori-apps/visitors && npm install",
-  "buildCommand": "cd fiori-apps/visitors && ui5 build --all",
+  "installCommand": "npm install --prefix fiori-apps/visitors",
+  "buildCommand": "npm run build --prefix fiori-apps/visitors",
   "outputDirectory": "fiori-apps/visitors/dist",
   "framework": null
 }
