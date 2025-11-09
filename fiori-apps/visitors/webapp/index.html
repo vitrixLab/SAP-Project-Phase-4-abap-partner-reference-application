@@ -112,7 +112,8 @@
     }
     .main-container {
           flex: 1 0 auto;       /* allow this to grow and shrink */
-          min‑height: 0;        /* very important for scroll to work in flex items */
+          min‑height: 0;        /* very important for scroll to work in flex items */ 
+        margin-left: 1rem;
         background: #121212;
         color: #E0E0E0;
         padding: 20px;
@@ -235,7 +236,7 @@
       <!-- Wrapper around nav + main container -->
       <div class="layout‑wrapper" style="display: flex;"> 
       
-        <div class="layout‑wrapper"> 
+        <div class="layout‑wrapper" style="height: 100vh;"> 
             <nav class="side-nav" aria-label="Main navigation">
               <ul>
                 <li><a href="#" class="nav-item active">
