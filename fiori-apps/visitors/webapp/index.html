@@ -1,35 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Visitors</title>
-    <style>
-        html, body, body > div, #container, #container-uiarea {
-            height: 100%;
-        }
-    </style>
-    <script
-        id="sap-ui-bootstrap"
-        src="resources/sap-ui-core.js"
-        data-sap-ui-theme="sap_horizon"
-        data-sap-ui-resourceroots='{
-            "visitors": "./"
-        }'
-        data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-        data-sap-ui-compatVersion="edge"
-        data-sap-ui-async="true"
-        data-sap-ui-frameOptions="trusted"
-    ></script>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>MySaaS Platform – Unified Dashboard</title>
+  <meta name="description" content="Manage your client pipeline, CI/CD pipelines, APIs & payments from one unified dashboard." />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <link rel="shortcut icon" type="image/x-icon" href="/assets/favicon.ico" />
+  <!-- you can add Apple touch icon / other sizes if needed -->
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:title" content="MySaaS Platform – Unified Dashboard" />
+  <meta property="og:description" content="Project management, CRM, CI/CD, API tracking & payments in one tool." />
+  <meta property="og:image" content="https://yourdomain.com/assets/social-preview.png" />
+  <meta property="og:url" content="https://yourdomain.com" />
+  <meta property="og:type" content="website" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="MySaaS Platform – Unified Dashboard" />
+  <meta name="twitter:description" content="Manage your pipelines, clients, APIs and payments seamlessly." />
+  <meta name="twitter:image" content="https://yourdomain.com/assets/social-preview.png" />
+
+  <!-- SAPUI5 / OpenUI5 bootstrap -->
+  <script
+    id="sap-ui-bootstrap"
+    src="https://ui5.sap.com/resources/sap-ui-core.js"
+    data-sap-ui-theme="sap_fiori_3_dark"
+    data-sap-ui-async="true"
+    data-sap-ui-compatVersion="edge"
+    data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
+    data-sap-ui-resourceroots='{"my.company.app": "./"}'
+  ></script>
+
+  <style>
+    /* Minimal base styles for fallback display */
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      color: #E0E0E0;
+      background: #121212;
+    }
+    #fallback {
+      display: none;
+      padding: 2rem;
+      text-align: center;
+    }
+    #fallback h2 {
+      color: #FF7A00;
+    }
+    /* Add more UI styles as needed for your design system */
+  </style>
+
 </head>
-<body class="sapUiBody sapUiSizeCompact" id="content">
-    <div
-        data-sap-ui-component
-        data-name="visitors"
-        data-id="container"
-        data-settings='{"id" : "visitors"}'
-        data-handle-validation="true"
-    ></div>
+<body id="content" class="sapUiBody">
+  
+  <!-- UI5 Component container -->
+  <div
+    data-sap-ui-component
+    data-name="my.company.app"
+    data-id="appComponent"
+    data-settings='{"id":"myApp"}'
+    style="height:100%;"
+  ></div>
+
+  <!-- Fallback UI if the component fails to load -->
+  <div id="fallback">
+    <h2>Unable to load the application.</h2>
+    <p>Please try refreshing or contact support.</p>
+  </div>
+
+  <script>
+    // Fallback logic: if component container doesn't load within timeout
+    setTimeout(function() {
+      var container = document.querySelector('[data-sap-ui-component]');
+      if (!container || container.innerHTML.trim() === '') {
+        document.getElementById('fallback').style.display = 'block';
+      }
+    }, 5000);
+  </script>
+
 </body>
 </html>
