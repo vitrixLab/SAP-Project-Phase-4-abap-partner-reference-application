@@ -47,7 +47,6 @@
       background: #121212;
     }
     #fallback {
-      margin-top: -2rem;
       display: none;
       padding: 2rem;
       text-align: center;
@@ -78,7 +77,7 @@
       width: 250px;
       background: #1E1E1E;
       color: #E0E0E0;
-      padding: 20px;
+      padding: 0px;
       box-shadow: 2px 0 8px rgba(0,0,0,0.5);
       overflow-y: auto;
     }
@@ -231,9 +230,11 @@
   <!-- The OG seperator -->
   <hr>
   
-  <div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; padding:20px;">
+  <div id="fallbackDashboard" 
+    style="display:none; height:100vh; background: transparent; 
+    color:#E0E0E0; padding:20px; margin-top: -2rem;">
     <!-- Wrapper around nav + main container -->
-    <div class="layout‑wrapper" style="display: flex; height: 100vh;"> 
+    <div class="layout‑wrapper"> 
         <nav class="side-nav" aria-label="Main navigation">
           <ul>
             <li><a href="#" class="nav-item active">
@@ -307,8 +308,8 @@
       
           <footer style="margin-top:30px; font-size:12px; color:#777;">
             Preview mode • Full functionality will be available once the component is loaded.
+          </footer> 
             <br>
-          </footer>
         </div>
       
         <script>
