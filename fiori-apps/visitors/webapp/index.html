@@ -12,8 +12,6 @@
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/882/882701.png">
   <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/882/882701.png" />
   
-  <!-- you can add Apple touch icon / other sizes if needed -->
-  
   <!-- Open Graph / Social Media -->
   <meta property="og:title" content="MySaaS Platform – Unified Dashboard" />
   <meta property="og:description" content="Project management, CRM, CI/CD, API tracking & payments in one tool." />
@@ -38,154 +36,360 @@
   ></script>
 
   <style>
-    /* Minimal base styles for fallback display */
-    body {
-      height: 100%;
+    /* CSS Reset and Base Styles */
+    * {
       margin: 0;
-      font-family: Arial, sans-serif;
-      color: #E0E0E0;
-      background: #121212;
-    }
-    #fallback {
-      display: none;
-      padding: 2rem;
-      text-align: center;
-    }
-    #fallback h2 {
-      color: #FF7A00;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    /* Skeleton shimmer animation */
+    body {
+      height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      color: #E0E0E0;
+      background: #121212;
+      overflow: hidden;
+    }
+
+    /* Loading Skeleton Animation */
     @keyframes shimmer {
       0% { background-position: -200px 0; }
       100% { background-position: 200px 0; }
     }
-    .skeleton-card .skeleton-title,
-    .skeleton-card .skeleton-line {
+    
+    .skeleton-card {
+      background: #1E1E1E;
+      border-radius: 8px;
+      padding: 16px;
+      margin-bottom: 16px;
+      border: 1px solid #2A2A2A;
+    }
+    
+    .skeleton-title,
+    .skeleton-line {
       background: linear-gradient(90deg, #1E1E1E 25%, #2A2A2A 50%, #1E1E1E 75%);
       background-size: 400px 100%;
       animation: shimmer 1.4s infinite;
+      border-radius: 4px;
+    }
+    
+    .skeleton-title {
+      height: 20px;
+      margin-bottom: 12px;
+    }
+    
+    .skeleton-line {
+      height: 14px;
+      margin-bottom: 8px;
     }
 
-    /* Nav UI Styles */
-    .layout-wrapper {
+    /* Main Layout Structure */
+    .app-container {
+      display: flex;
       height: 100vh;
-      overflow: hidden;
+      background: #121212;
     }
+
+    /* Side Navigation */
     .side-nav {
-      width: 250px;
+      width: 260px;
       background: #1E1E1E;
       color: #E0E0E0;
-      padding: 0px;
-      box-shadow: 2px 0 8px rgba(0,0,0,0.5);
-      overflow-y: auto;
+      padding: 20px 0;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.3);
+      border-right: 1px solid #2A2A2A;
+      flex-shrink: 0;
     }
-    .side-nav ul {
-      list-style: none;
-      margin: 0;
-      padding: 0;
+    
+    .nav-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid #2A2A2A;
+      margin-bottom: 20px;
     }
-    .side-nav .nav-item {
-      display: flex;
-      align-items: center;
-      padding: 10px 0;
-      color: #E0E0E0;
-      text-decoration: none;
-      transition: background 0.2s;
-    }
-    .side-nav .nav-item .nav-icon {
-      display: inline-block;
-      width: 24px;
-      text-align: center;
-      margin-right: 12px;
-    }
-    .side-nav .nav-item:hover,
-    .side-nav .nav-item:focus {
-      background: #2A2A2A;
-    }
-    .side-nav .nav-item.active {
-      background: #FF7A00;
-      color: #ffffff;
-    }
-    .nav-label {
-      font-size: 14px;
-    }
-    .main-container {
-          flex: 1 0 auto;       /* allow this to grow and shrink */
-          min‑height: 0;        /* very important for scroll to work in flex items */ 
-        margin-left: 1rem;
-        background: #121212;
-        color: #E0E0E0;
-        padding: 20px;
-        /* enable vertical scrolling when content overflows */
-        overflow‑y: auto;
-        overflow‑x: hidden;
-    }
-    @media (max-width: 768px) {
-      .side-nav {
-        width: 70px;
-      }
-      .nav-label {
-        display: none;
-      }
-      .side-nav .nav-icon {
-        margin-right: 0;
-      }
-    }
-
-    /* Header UI Style */
-    .app‑header {
-      background: transparent;
-      color: #E0E0E0;
-      padding: 20px;  
-      margin‑bottom: -20px;
-    }
-    .header‑wrapper {
-      display: flex;
-      align‑items: center;
-      justify‑space: between;
-      max‑width: 1200px;
-      margin: 0 auto;
-    }
-    .logo‑container {
-      flex: 0 0 auto;
-      width: 100px;
-    }
-    .app‑logo {
-      margin‑top: 5px;
-      height: 80px;       /* Adjust as needed */
+    
+    .nav-logo {
+      height: 32px;
       width: auto;
     }
-    .title‑container {
-      flex: 1 1 auto; 
-      margin‑left: 20px;
+    
+    .nav-menu {
+      list-style: none;
+      padding: 0;
     }
-    .app‑title {
-      margin: 0;
-      font‑size: 24px;
+    
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: #E0E0E0;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border-left: 3px solid transparent;
+    }
+    
+    .nav-item:hover {
+      background: #2A2A2A;
+      border-left-color: #FF7A00;
+    }
+    
+    .nav-item.active {
+      background: #2A2A2A;
+      border-left-color: #FF7A00;
       color: #FF7A00;
     }
-    .app‑subtitle {
-      margin: 4px 0 0;
-      font‑size: 14px;
+    
+    .nav-icon {
+      width: 20px;
+      text-align: center;
+      margin-right: 12px;
+      font-size: 16px;
+    }
+    
+    .nav-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Main Content Area */
+    .main-content {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+
+    /* Header */
+    .app-header {
+      background: #1E1E1E;
+      padding: 16px 24px;
+      border-bottom: 1px solid #2A2A2A;
+      flex-shrink: 0;
+    }
+    
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      max-width: 100%;
+    }
+    
+    .header-titles h1 {
+      font-size: 24px;
+      color: #FF7A00;
+      margin-bottom: 4px;
+    }
+    
+    .header-titles p {
+      font-size: 14px;
       color: #B3B3B3;
-    } 
-    @media (max‑width: 768px) {
-      .header‑wrapper {
-        flex‑direction: column;
-        align‑items: flex‑start;
+      margin: 0;
+    }
+    
+    .user-menu {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    
+    .user-avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #FF7A00;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: bold;
+    }
+
+    /* Dashboard Content */
+    .dashboard-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background: #121212;
+    }
+    
+    .content-header {
+      margin-bottom: 24px;
+    }
+    
+    .content-header h2 {
+      font-size: 28px;
+      color: #E0E0E0;
+      margin-bottom: 8px;
+    }
+    
+    .content-header p {
+      color: #B3B3B3;
+      font-size: 16px;
+    }
+
+    /* Cards Grid */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+      margin-bottom: 32px;
+    }
+    
+    .dashboard-card {
+      background: #1E1E1E;
+      border: 1px solid #2A2A2A;
+      border-radius: 8px;
+      padding: 20px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .dashboard-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      border-color: #FF7A00;
+    }
+    
+    .card-header {
+      display: flex;
+      align-items: center;
+      justify-content: between;
+      margin-bottom: 16px;
+    }
+    
+    .card-title {
+      font-size: 18px;
+      color: #E0E0E0;
+      font-weight: 600;
+    }
+    
+    .card-icon {
+      width: 24px;
+      height: 24px;
+      background: #FF7A00;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+    
+    .card-content {
+      color: #B3B3B3;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    /* Footer */
+    .app-footer {
+      background: #1E1E1E;
+      padding: 16px 24px;
+      border-top: 1px solid #2A2A2A;
+      text-align: center;
+      color: #777;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .side-nav {
+        width: 80px;
       }
-      .title‑container {
-        margin‑left: 0;
-        margin‑top: 10px;
+      
+      .nav-label,
+      .nav-header {
+        display: none;
+      }
+      
+      .nav-icon {
+        margin-right: 0;
+        font-size: 18px;
+      }
+      
+      .nav-item {
+        justify-content: center;
+        padding: 16px 0;
       }
     }
     
-    /* Add more UI styles as needed for your design system */
-    
-  </style>
+    @media (max-width: 768px) {
+      .app-container {
+        flex-direction: column;
+      }
+      
+      .side-nav {
+        width: 100%;
+        height: auto;
+        padding: 0;
+      }
+      
+      .nav-menu {
+        display: flex;
+        overflow-x: auto;
+      }
+      
+      .nav-item {
+        flex: 1;
+        min-width: 80px;
+        flex-direction: column;
+        padding: 12px 8px;
+        border-left: none;
+        border-bottom: 3px solid transparent;
+      }
+      
+      .nav-item.active,
+      .nav-item:hover {
+        border-left: none;
+        border-bottom-color: #FF7A00;
+      }
+      
+      .nav-icon {
+        margin-right: 0;
+        margin-bottom: 4px;
+        font-size: 18px;
+      }
+      
+      .nav-label {
+        font-size: 12px;
+        display: block;
+      }
+      
+      .cards-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+      
+      .user-menu {
+        align-self: flex-end;
+      }
+    }
 
+    /* Scrollbar Styling */
+    ::-webkit-scrollbar {
+      width: 6px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #1E1E1E;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: #FF7A00;
+      border-radius: 3px;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: #E56900;
+    }
+  </style>
 </head>
+
 <body id="content" class="sapUiBody">
   
   <!-- UI5 Component container -->
@@ -197,138 +401,200 @@
     style="height:100%;"
   ></div>
 
-  <!-- Loading Placeholder (Facebook-like skeleton) -->
-  <div id="loadingPlaceholder" style="padding:20px; min-height:100vh;">
-    <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-      <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
-      <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
-      <div class="skeleton-line" style="width:80%; height:14px;"></div>
+  <!-- Loading Placeholder -->
+  <div id="loadingPlaceholder" style="height:100vh; background:#121212; display:flex;">
+    <div class="side-nav" style="padding-top:20px;">
+      <div class="skeleton-card" style="margin:20px; height:32px;"></div>
+      <div style="padding:0 20px;">
+        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
+      </div>
     </div>
-    <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-      <div class="skeleton-title" style="width:50%; height:20px; margin-bottom:10px;"></div>
-      <div class="skeleton-line" style="width:70%; height:14px; margin-bottom:6px;"></div>
-      <div class="skeleton-line" style="width:90%; height:14px;"></div>
+    
+    <div class="main-content" style="flex:1;">
+      <div class="app-header">
+        <div class="skeleton-title" style="width:300px; height:32px;"></div>
+      </div>
+      <div class="dashboard-content">
+        <div class="skeleton-title" style="width:200px; height:28px; margin-bottom:16px;"></div>
+        <div class="cards-grid">
+          <div class="skeleton-card">
+            <div class="skeleton-title" style="width:60%;"></div>
+            <div class="skeleton-line" style="width:80%;"></div>
+            <div class="skeleton-line" style="width:90%;"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-title" style="width:70%;"></div>
+            <div class="skeleton-line" style="width:85%;"></div>
+            <div class="skeleton-line" style="width:75%;"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-title" style="width:50%;"></div>
+            <div class="skeleton-line" style="width:95%;"></div>
+            <div class="skeleton-line" style="width:70%;"></div>
+          </div>
+          <div class="skeleton-card">
+            <div class="skeleton-title" style="width:65%;"></div>
+            <div class="skeleton-line" style="width:88%;"></div>
+            <div class="skeleton-line" style="width:82%;"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Fallback Dashboard -->
-  <header class="app‑header">
-    <div class="header‑wrapper">
-      <div class="logo‑container">
-        <img src="https://cdn-icons-png.flaticon.com/512/882/882701.png"
-             alt="SAP Logo"
-             class="app‑logo" />
-      </div>
-      <div class="title‑container">
-        <br>
-        <h1 class="app‑title">SAP Project Phase 4 – Dashboard Preview</h1>
-        <p class="app‑subtitle">Basic overview while full app loads or if component fails.</p>
-      </div>
-    </div>
-  </header>
-  
-  <!-- The OG seperator -->
-  <hr>
-  
-  <div id="fallbackDashboard" 
-    style="display:none; height:100vh; background: transparent; 
-    color:#E0E0E0; padding:20px; margin-top: -1rem;">
-      <!-- Wrapper around nav + main container -->
-      <div class="layout‑wrapper" style="display: flex;"> 
-      
-        <div class="layout‑wrapper" style="height: 100vh;"> 
-            <nav class="side-nav" aria-label="Main navigation">
-              <ul>
-                <li><a href="#" class="nav-item active">
-                    <span class="nav-icon">🏠</span>
-                    <span class="nav-label">Dashboard</span>
-                  </a></li>
-                <li><a href="#" class="nav-item">
-                    <span class="nav-icon">📁</span>
-                    <span class="nav-label">Projects</span>
-                  </a></li>
-                <li><a href="#" class="nav-item">
-                    <span class="nav-icon">👥</span>
-                    <span class="nav-label">Clients</span>
-                  </a></li>
-                <li><a href="#" class="nav-item">
-                    <span class="nav-icon">🔧</span>
-                    <span class="nav-label">CI / CD</span>
-                  </a></li>
-                <li><a href="#" class="nav-item">
-                    <span class="nav-icon">💳</span>
-                    <span class="nav-label">Payments</span>
-                  </a></li>
-              </ul>
-            </nav>  
+  <div id="fallbackDashboard" style="display:none; height:100vh;">
+    <div class="app-container">
+      <!-- Side Navigation -->
+      <nav class="side-nav" aria-label="Main navigation">
+        <div class="nav-header">
+          <img src="https://cdn-icons-png.flaticon.com/512/882/882701.png" 
+               alt="SAP Logo" 
+               class="nav-logo">
         </div>
-    
-        <!-- Main content container -->
-        <div class="main‑container">
-        <!-- Your fallback dashboard or actual app content goes here -->
-        <h1 style="color:#FF7A00;">Overview</h1>
-        <p style="color:#B3B3B3;">Basic overview while full app loads or if component fails.</p>
-  
-        <!-- Example of card layout inside container -->
-            <section style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:20px;">
-              <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-                <h2 style="font-size:18px; margin-bottom:10px;">Active Projects</h2>
-                  <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-                    <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px;"></div>
-                  </div>
-                <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-              </div>
-              <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-                <h2 style="font-size:18px; margin-bottom:10px;">CI / CD Pipeline</h2>
-                  <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-                    <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px;"></div>
-                  </div>
-                <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-              </div>
-              <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-                <h2 style="font-size:18px; margin-bottom:10px;">API Health</h2> 
-                  <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-                    <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px;"></div>
-                  </div>
-                <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-              </div>
-              <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-                <h2 style="font-size:18px; margin-bottom:10px;">Payments Summary</h2>
-                  <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
-                    <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
-                    <div class="skeleton-line" style="width:80%; height:14px;"></div>
-                  </div>
-                <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-              </div>
-            </section>
-        
-            <footer style="margin-top:30px; font-size:12px; color:#777;">
-              Preview mode • Full functionality will be available once the component is loaded.
-            </footer> 
-              <br>
+        <ul class="nav-menu">
+          <li>
+            <a href="#" class="nav-item active">
+              <span class="nav-icon">🏠</span>
+              <span class="nav-label">Dashboard</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item">
+              <span class="nav-icon">📁</span>
+              <span class="nav-label">Projects</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item">
+              <span class="nav-icon">👥</span>
+              <span class="nav-label">Clients</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item">
+              <span class="nav-icon">🔧</span>
+              <span class="nav-label">CI/CD</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item">
+              <span class="nav-icon">💳</span>
+              <span class="nav-label">Payments</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <!-- Main Content -->
+      <div class="main-content">
+        <!-- Header -->
+        <header class="app-header">
+          <div class="header-content">
+            <div class="header-titles">
+              <h1>SAP Project Phase 4 – Dashboard</h1>
+              <p>Unified CRM, API & Payment Gateway Management</p>
+            </div>
+            <div class="user-menu">
+              <div class="user-avatar">JD</div>
+            </div>
           </div>
-      
-        <script>
-          // Simulate component load delay / fallback detection
-          setTimeout(function(){
-            var container = document.querySelector('[data-sap-ui-component]');
-            var placeholder = document.getElementById('loadingPlaceholder');
-            var fallback = document.getElementById('fallbackDashboard');
-            if (!container || container.innerHTML.trim()==='') {
-              placeholder.style.display = 'none';
-              fallback.style.display = 'block';
-            }
-          }, 5000);
-        </script>  
+        </header>
+
+        <!-- Dashboard Content -->
+        <main class="dashboard-content">
+          <div class="content-header">
+            <h2>Overview</h2>
+            <p>Welcome to your unified dashboard. Monitor all activities from one place.</p>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="cards-grid">
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Active Projects</h3>
+                <div class="card-icon">📊</div>
+              </div>
+              <div class="card-content">
+                <div class="skeleton-card">
+                  <div class="skeleton-title" style="width:60%;"></div>
+                  <div class="skeleton-line" style="width:80%;"></div>
+                  <div class="skeleton-line" style="width:80%;"></div>
+                </div>
+                <p style="color:#777; font-size:12px; margin-top:8px;">Loading project data...</p>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">CI/CD Pipeline</h3>
+                <div class="card-icon">⚡</div>
+              </div>
+              <div class="card-content">
+                <div class="skeleton-card">
+                  <div class="skeleton-title" style="width:70%;"></div>
+                  <div class="skeleton-line" style="width:90%;"></div>
+                  <div class="skeleton-line" style="width:75%;"></div>
+                </div>
+                <p style="color:#777; font-size:12px; margin-top:8px;">Checking pipeline status...</p>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">API Health</h3>
+                <div class="card-icon">🌐</div>
+              </div>
+              <div class="card-content">
+                <div class="skeleton-card">
+                  <div class="skeleton-title" style="width:50%;"></div>
+                  <div class="skeleton-line" style="width:85%;"></div>
+                  <div class="skeleton-line" style="width:70%;"></div>
+                </div>
+                <p style="color:#777; font-size:12px; margin-top:8px;">Monitoring API endpoints...</p>
+              </div>
+            </div>
+
+            <div class="dashboard-card">
+              <div class="card-header">
+                <h3 class="card-title">Payments Summary</h3>
+                <div class="card-icon">💰</div>
+              </div>
+              <div class="card-content">
+                <div class="skeleton-card">
+                  <div class="skeleton-title" style="width:65%;"></div>
+                  <div class="skeleton-line" style="width:88%;"></div>
+                  <div class="skeleton-line" style="width:82%;"></div>
+                </div>
+                <p style="color:#777; font-size:12px; margin-top:8px;">Loading payment data...</p>
+              </div>
+            </div>
+          </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="app-footer">
+          Preview Mode • Full functionality available when component loads
+        </footer>
+      </div>
     </div>
   </div>
 
+  <script>
+    // Component load detection
+    setTimeout(function(){
+      const container = document.querySelector('[data-sap-ui-component]');
+      const placeholder = document.getElementById('loadingPlaceholder');
+      const fallback = document.getElementById('fallbackDashboard');
+      
+      if (!container || container.innerHTML.trim() === '') {
+        placeholder.style.display = 'none';
+        fallback.style.display = 'block';
+      }
+    }, 3000);
+  </script>
 </body>
 </html>
