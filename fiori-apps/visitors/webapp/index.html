@@ -53,7 +53,21 @@
     #fallback h2 {
       color: #FF7A00;
     }
+
+    /* Skeleton shimmer animation */
+    @keyframes shimmer {
+      0% { background-position: -200px 0; }
+      100% { background-position: 200px 0; }
+    }
+    .skeleton-card .skeleton-title,
+    .skeleton-card .skeleton-line {
+      background: linear-gradient(90deg, #1E1E1E 25%, #2A2A2A 50%, #1E1E1E 75%);
+      background-size: 400px 100%;
+      animation: shimmer 1.4s infinite;
+    }
+    
     /* Add more UI styles as needed for your design system */
+    
   </style>
 
 </head>
