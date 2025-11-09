@@ -40,12 +40,14 @@
   <style>
     /* Minimal base styles for fallback display */
     body {
+      height: 100%;
       margin: 0;
       font-family: Arial, sans-serif;
       color: #E0E0E0;
       background: #121212;
     }
     #fallback {
+      margin-top: -2rem;
       display: none;
       padding: 2rem;
       text-align: center;
@@ -79,7 +81,6 @@
       padding: 20px;
       box-shadow: 2px 0 8px rgba(0,0,0,0.5);
       overflow-y: auto;
-      border‑top: 1px solid #F8F8F8;
     }
     .side-nav ul {
       list-style: none;
@@ -232,11 +233,7 @@
   
   <div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; padding:20px;">
     <!-- Wrapper around nav + main container -->
-    <div class="layout‑wrapper" style="display: flex; height: 100vh;">
-    
-      <!-- Navigation sidebar -->
-      <div class="layout-wrapper">
-        
+    <div class="layout‑wrapper" style="display: flex; height: 100vh;"> 
         <nav class="side-nav" aria-label="Main navigation">
           <ul>
             <li><a href="#" class="nav-item active">
@@ -260,9 +257,8 @@
                 <span class="nav-label">Payments</span>
               </a></li>
           </ul>
-        </nav>
-
-      </div>
+        </nav> 
+      
       <!-- Main content container -->
       <div class="main‑container">
       <!-- Your fallback dashboard or actual app content goes here -->
@@ -327,7 +323,6 @@
             }
           }, 5000);
         </script>
-        
     </div>
   </div>
 
