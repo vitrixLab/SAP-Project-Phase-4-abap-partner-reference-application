@@ -65,6 +65,69 @@
       background-size: 400px 100%;
       animation: shimmer 1.4s infinite;
     }
+
+    /* Nav UI Styles */
+    .layout-wrapper {
+      display: flex;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .side-nav {
+      width: 250px;
+      background: #1E1E1E;
+      color: #E0E0E0;
+      padding: 20px;
+      box-shadow: 2px 0 8px rgba(0,0,0,0.5);
+      overflow-y: auto;
+    }
+    .side-nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .side-nav .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 10px 0;
+      color: #E0E0E0;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .side-nav .nav-item .nav-icon {
+      display: inline-block;
+      width: 24px;
+      text-align: center;
+      margin-right: 12px;
+    }
+    .side-nav .nav-item:hover,
+    .side-nav .nav-item:focus {
+      background: #2A2A2A;
+    }
+    .side-nav .nav-item.active {
+      background: #FF7A00;
+      color: #ffffff;
+    }
+    .nav-label {
+      font-size: 14px;
+    }
+    .main-container {
+      flex: 1;
+      background: #121212;
+      color: #E0E0E0;
+      padding: 20px;
+      overflow-y: auto;
+    }
+    @media (max-width: 768px) {
+      .side-nav {
+        width: 70px;
+      }
+      .nav-label {
+        display: none;
+      }
+      .side-nav .nav-icon {
+        margin-right: 0;
+      }
+    }
     
     /* Add more UI styles as needed for your design system */
     
@@ -98,7 +161,7 @@
 
   <!-- Fallback Dashboard -->
   <div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; padding:20px;">
-    <header style="margin-bottom:20px;"> 
+    <header style="margin-bottom:20px; background:#F8F8F8;"> 
       <h1 style="margin:0; font-size:24px; color:#FF7A00;">SAP Project Phase 4 – Dashboard Preview</h1>
       <p style="margin:4px 0 0; font-size:14px; color:#B3B3B3;">Basic overview while full app loads or if component fails.</p>
     </header>
@@ -107,22 +170,31 @@
     <div class="layout‑wrapper" style="display: flex; height: 100vh;">
     
       <!-- Navigation sidebar -->
-      <nav class="side‑nav" style="
-        width: 250px;
-        background: #1E1E1E;
-        color: #E0E0E0;
-        padding: 20px;
-        box‑shadow: 2px 0 8px rgba(0,0,0,0.5);
-        overflow‑y: auto;
-      ">
-        <ul style="list‑style: none; margin:0; padding:0;">
-          <li style="margin‑bottom:12px;"><a href="#" style="color:#E0E0E0; text‑decoration:none;">Dashboard</a></li>
-          <li style="margin‑bottom:12px;"><a href="#" style="color:#E0E0E0; text‑decoration:none;">Projects</a></li>
-          <li style="margin‑bottom:12px;"><a href="#" style="color:#E0E0E0; text‑decoration:none;">Clients</a></li>
-          <li style="margin‑bottom:12px;"><a href="#" style="color:#E0E0E0; text‑decoration:none;">CI/CD</a></li>
-          <li><a href="#" style="color:#E0E0E0; text‑decoration:none;">Payments</a></li>
-        </ul>
-      </nav>
+      <div class="layout-wrapper">
+        <nav class="side-nav" aria-label="Main navigation">
+          <ul>
+            <li><a href="#" class="nav-item active">
+                <span class="nav-icon">🏠</span>
+                <span class="nav-label">Dashboard</span>
+              </a></li>
+            <li><a href="#" class="nav-item">
+                <span class="nav-icon">📁</span>
+                <span class="nav-label">Projects</span>
+              </a></li>
+            <li><a href="#" class="nav-item">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label">Clients</span>
+              </a></li>
+            <li><a href="#" class="nav-item">
+                <span class="nav-icon">🔧</span>
+                <span class="nav-label">CI / CD</span>
+              </a></li>
+            <li><a href="#" class="nav-item">
+                <span class="nav-icon">💳</span>
+                <span class="nav-label">Payments</span>
+              </a></li>
+          </ul>
+        </nav>
 
       <!-- Main content container -->
       <div class="main‑container" style="
@@ -193,6 +265,8 @@
             }
           }, 5000);
         </script>
+        
+      </div>
     </div>
   </div>
 
