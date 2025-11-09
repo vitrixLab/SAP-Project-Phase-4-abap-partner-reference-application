@@ -68,53 +68,63 @@
     style="height:100%;"
   ></div>
 
-<!-- Fallback Dashboard Container -->
-<div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; font-family:Arial, sans-serif; padding:20px;">
-  <header style="margin-bottom:20px;"> 
-    <h1 style="margin:0; font-size:24px; color:#FF7A00;">SAP Project Phase 4 – Dashboard Preview</h1>
-    <p style="margin:4px 0 0; font-size:14px; color:#B3B3B3;">Basic overview while full app loads or if component fails.</p>
-  </header>
-
-  <section style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:20px;">
-    <!-- Card: Active Projects -->
-    <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-      <h2 style="font-size:18px; margin-bottom:10px;">Active Projects</h2>
-      <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+  <!-- Loading Placeholder (Facebook-like skeleton) -->
+  <div id="loadingPlaceholder" style="padding:20px; min-height:100vh;">
+    <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
+      <div class="skeleton-title" style="width:60%; height:20px; margin-bottom:10px;"></div>
+      <div class="skeleton-line" style="width:80%; height:14px; margin-bottom:6px;"></div>
+      <div class="skeleton-line" style="width:80%; height:14px;"></div>
     </div>
-
-    <!-- Card: CI/CD Status -->
-    <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-      <h2 style="font-size:18px; margin-bottom:10px;">CI / CD Pipeline</h2>
-      <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+    <div class="skeleton-card" style="background:#1E1E1E; border-radius:4px; padding:15px; margin-bottom:20px;">
+      <div class="skeleton-title" style="width:50%; height:20px; margin-bottom:10px;"></div>
+      <div class="skeleton-line" style="width:70%; height:14px; margin-bottom:6px;"></div>
+      <div class="skeleton-line" style="width:90%; height:14px;"></div>
     </div>
+  </div>
 
-    <!-- Card: API Health -->
-    <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-      <h2 style="font-size:18px; margin-bottom:10px;">API Health</h2>
-      <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-    </div>
+  <!-- Fallback Dashboard -->
+  <div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; padding:20px;">
+    <header style="margin-bottom:20px;"> 
+      <h1 style="margin:0; font-size:24px; color:#FF7A00;">SAP Project Phase 4 – Dashboard Preview</h1>
+      <p style="margin:4px 0 0; font-size:14px; color:#B3B3B3;">Basic overview while full app loads or if component fails.</p>
+    </header>
 
-    <!-- Card: Payments Summary -->
-    <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
-      <h2 style="font-size:18px; margin-bottom:10px;">Payments Summary</h2>
-      <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
-    </div>
-  </section>
+    <section style="display:grid; grid-template-columns: repeat(auto-fit, minmax(300px,1fr)); gap:20px;">
+      <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
+        <h2 style="font-size:18px; margin-bottom:10px;">Active Projects</h2>
+        <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+      </div>
+      <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
+        <h2 style="font-size:18px; margin-bottom:10px;">CI / CD Pipeline</h2>
+        <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+      </div>
+      <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
+        <h2 style="font-size:18px; margin-bottom:10px;">API Health</h2>
+        <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+      </div>
+      <div style="background:#2A2A2A; padding:15px; border-radius:4px; box-shadow:0 2px 4px rgba(0,0,0,0.5);">
+        <h2 style="font-size:18px; margin-bottom:10px;">Payments Summary</h2>
+        <div style="font-size:14px; color:#B3B3B3;">Loading…</div>
+      </div>
+    </section>
 
-  <footer style="margin-top:30px; font-size:12px; color:#777;">
-    Preview mode • Full functionality will be available once the component is loaded.
-  </footer>
-</div>
+    <footer style="margin-top:30px; font-size:12px; color:#777;">
+      Preview mode • Full functionality will be available once the component is loaded.
+    </footer>
+  </div>
 
-<script>
-  // Fallback logic: show this dashboard if main component fails
-  setTimeout(function(){
-    var container = document.querySelector('[data-sap-ui-component]');
-    if (!container || container.innerHTML.trim()==='') {
-      document.getElementById('fallbackDashboard').style.display = 'block';
-    }
-  }, 5000);
-</script>
+  <script>
+    // Simulate component load delay / fallback detection
+    setTimeout(function(){
+      var container = document.querySelector('[data-sap-ui-component]');
+      var placeholder = document.getElementById('loadingPlaceholder');
+      var fallback = document.getElementById('fallbackDashboard');
+      if (!container || container.innerHTML.trim()==='') {
+        placeholder.style.display = 'none';
+        fallback.style.display = 'block';
+      }
+    }, 5000);
+  </script>
 
 
 </body>
