@@ -128,6 +128,51 @@
         margin-right: 0;
       }
     }
+
+    /* Header UI Style */
+    .app‑header {
+      background: #1E1E1E;
+      color: #E0E0E0;
+      padding: 20px;
+    }
+    .header‑wrapper {
+      display: flex;
+      align‑items: center;
+      justify‑space: between;
+      max‑width: 1200px;
+      margin: 0 auto;
+    }
+    .logo‑container {
+      flex: 0 0 auto;
+    }
+    .app‑logo {
+      height: 40px;       /* Adjust as needed */
+      width: auto;
+    }
+    .title‑container {
+      flex: 1 1 auto;
+      margin‑left: 20px;
+    }
+    .app‑title {
+      margin: 0;
+      font‑size: 24px;
+      color: #FF7A00;
+    }
+    .app‑subtitle {
+      margin: 4px 0 0;
+      font‑size: 14px;
+      color: #B3B3B3;
+    }
+    @media (max‑width: 768px) {
+      .header‑wrapper {
+        flex‑direction: column;
+        align‑items: flex‑start;
+      }
+      .title‑container {
+        margin‑left: 0;
+        margin‑top: 10px;
+      }
+    }
     
     /* Add more UI styles as needed for your design system */
     
@@ -160,11 +205,19 @@
   </div>
 
   <!-- Fallback Dashboard -->
-  
-    <header style="padding:20px;"> 
-      <h1 style="margin:0; font-size:24px; color:#FF7A00;">SAP Project Phase 4 – Dashboard Preview</h1>
-      <p style="margin:4px 0 0; font-size:14px; color:#B3B3B3;">Basic overview while full app loads or if component fails.</p>
-    </header>
+  <header class="app‑header">
+    <div class="header‑wrapper">
+      <div class="logo‑container">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/8f/SAP‑Logo.svg"
+             alt="SAP Logo"
+             class="app‑logo" />
+      </div>
+      <div class="title‑container">
+        <h1 class="app‑title">SAP Project Phase 4 – Dashboard Preview</h1>
+        <p class="app‑subtitle">Basic overview while full app loads or if component fails.</p>
+      </div>
+    </div>
+  </header>
   
   <div id="fallbackDashboard" style="display:none; height:100vh; background:#1E1E1E; color:#E0E0E0; padding:20px;">
 
