@@ -5,23 +5,23 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>SAP Project Phase 4 Reference – Unified CRM, API & Payment Gateway SaaS</title>
-  <meta name="description" content="Manage your client pipeline, CI/CD pipelines, APIs & payments from one unified dashboard." />
+  <title>Ascend Payments Platform - Unified SaaS Payment Gateway</title>
+  <meta name="description" content="Enterprise-grade payment gateway for subscription businesses. Monitor clients, transactions, and API performance from one dashboard." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/882/882701.png">
   <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/882/882701.png" />
   
   <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="MySaaS Platform – Unified Dashboard" />
-  <meta property="og:description" content="Project management, CRM, CI/CD, API tracking & payments in one tool." />
+  <meta property="og:title" content="Ascend Payments Platform - Unified Dashboard" />
+  <meta property="og:description" content="Enterprise payment gateway for SaaS businesses with unified monitoring." />
   <meta property="og:image" content="https://yourdomain.com/assets/social-preview.png" />
   <meta property="og:url" content="https://yourdomain.com" />
   <meta property="og:type" content="website" />
 
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="MySaaS Platform – Unified Dashboard" />
-  <meta name="twitter:description" content="Manage your pipelines, clients, APIs and payments seamlessly." />
+  <meta name="twitter:title" content="Ascend Payments Platform" />
+  <meta name="twitter:description" content="Unified payment gateway dashboard for SaaS businesses" />
   <meta name="twitter:image" content="https://yourdomain.com/assets/social-preview.png" />
 
   <!-- SAPUI5 / OpenUI5 bootstrap -->
@@ -36,7 +36,25 @@
   ></script>
 
   <style>
-    /* CSS Reset and Base Styles */
+    /* ===== CSS VARIABLES & RESET ===== */
+    :root {
+      --primary-color: #FF7A00;
+      --primary-dark: #E56900;
+      --bg-primary: #121212;
+      --bg-secondary: #1E1E1E;
+      --bg-tertiary: #2A2A2A;
+      --text-primary: #E0E0E0;
+      --text-secondary: #B3B3B3;
+      --text-muted: #777;
+      --border-color: #2A2A2A;
+      --success-color: #27ae60;
+      --warning-color: #f39c12;
+      --error-color: #e74c3c;
+      --border-radius: 8px;
+      --transition: all 0.3s ease;
+      --shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -47,111 +65,44 @@
       height: 100vh;
       margin: 0;
       font-family: 'Segoe UI', Arial, sans-serif;
-      color: #E0E0E0;
-      background: #121212;
+      color: var(--text-primary);
+      background: var(--bg-primary);
       overflow: hidden;
     }
 
-    /* Loading Skeleton Animation */
+    /* ===== LOADING ANIMATIONS ===== */
     @keyframes shimmer {
       0% { background-position: -200px 0; }
       100% { background-position: 200px 0; }
     }
-    
-    .skeleton-card {
-      background: #1E1E1E;
-      border-radius: 8px;
-      padding: 16px;
-      margin-bottom: 16px;
-      border: 1px solid #2A2A2A;
-    }
-    
-    .skeleton-title,
-    .skeleton-line {
-      background: linear-gradient(90deg, #1E1E1E 25%, #2A2A2A 50%, #1E1E1E 75%);
+
+    .skeleton-loader {
+      background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
       background-size: 400px 100%;
       animation: shimmer 1.4s infinite;
       border-radius: 4px;
     }
-    
-    .skeleton-title {
-      height: 20px;
-      margin-bottom: 12px;
-    }
-    
-    .skeleton-line {
-      height: 14px;
-      margin-bottom: 8px;
-    }
 
-    /* Main Layout Structure */
+    .skeleton-title { height: 20px; margin-bottom: 12px; }
+    .skeleton-line { height: 14px; margin-bottom: 8px; }
+
+    /* ===== LAYOUT COMPONENTS ===== */
     .app-container {
       display: flex;
       height: 100vh;
-      background: #121212;
+      background: var(--bg-primary);
     }
 
-    /* Side Navigation */
     .side-nav {
       width: 260px;
-      background: #1E1E1E;
-      color: #E0E0E0;
+      background: var(--bg-secondary);
+      color: var(--text-primary);
       padding: 20px 0;
       box-shadow: 2px 0 8px rgba(0,0,0,0.3);
-      border-right: 1px solid #2A2A2A;
+      border-right: 1px solid var(--border-color);
       flex-shrink: 0;
     }
-    
-    .nav-header {
-      padding: 0 20px 20px;
-      border-bottom: 1px solid #2A2A2A;
-      /* margin-bottom: 20px; */
-    }
-    
-    .nav-logo {
-      height: 42px;
-      width: auto;
-    }
-    
-    .nav-menu {
-      list-style: none;
-      padding: 0;
-    }
-    
-    .nav-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 20px;
-      color: #E0E0E0;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      border-left: 3px solid transparent;
-    }
-    
-    .nav-item:hover {
-      background: #2A2A2A;
-      border-left-color: #FF7A00;
-    }
-    
-    .nav-item.active {
-      background: #2A2A2A;
-      border-left-color: #FF7A00;
-      color: #FF7A00;
-    }
-    
-    .nav-icon {
-      width: 20px;
-      text-align: center;
-      margin-right: 12px;
-      font-size: 16px;
-    }
-    
-    .nav-label {
-      font-size: 14px;
-      font-weight: 500;
-    }
 
-    /* Main Content Area */
     .main-content {
       flex: 1;
       display: flex;
@@ -160,44 +111,100 @@
       overflow: hidden;
     }
 
-    /* Header */
     .app-header {
-      background: #1E1E1E;
+      background: var(--bg-secondary);
       padding: 16px 24px;
-      border-bottom: 1px solid #2A2A2A;
+      border-bottom: 1px solid var(--border-color);
       flex-shrink: 0;
     }
-    
+
+    .dashboard-content {
+      flex: 1;
+      padding: 24px;
+      overflow-y: auto;
+      background: var(--bg-primary);
+    }
+
+    /* ===== NAVIGATION COMPONENTS ===== */
+    .nav-header {
+      padding: 0 20px 20px;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .nav-logo {
+      height: 42px;
+      width: auto;
+    }
+
+    .nav-menu {
+      list-style: none;
+      padding: 0;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 20px;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: var(--transition);
+      border-left: 3px solid transparent;
+    }
+
+    .nav-item:hover {
+      background: var(--bg-tertiary);
+      border-left-color: var(--primary-color);
+    }
+
+    .nav-item.active {
+      background: var(--bg-tertiary);
+      border-left-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+
+    .nav-icon {
+      width: 20px;
+      text-align: center;
+      margin-right: 12px;
+      font-size: 16px;
+    }
+
+    .nav-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* ===== HEADER COMPONENTS ===== */
     .header-content {
       display: flex;
       align-items: center;
       justify-content: space-between;
       max-width: 100%;
     }
-    
+
     .header-titles h1 {
       font-size: 24px;
-      color: #FF7A00;
+      color: var(--primary-color);
       margin-bottom: 4px;
     }
-    
+
     .header-titles p {
       font-size: 14px;
-      color: #B3B3B3;
+      color: var(--text-secondary);
       margin: 0;
     }
-    
+
     .user-menu {
       display: flex;
       align-items: center;
       gap: 16px;
     }
-    
+
     .user-avatar {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #FF7A00;
+      background: var(--primary-color);
       display: flex;
       align-items: center;
       justify-content: center;
@@ -205,68 +212,59 @@
       font-weight: bold;
     }
 
-    /* Dashboard Content */
-    .dashboard-content {
-      flex: 1;
-      padding: 24px;
-      overflow-y: auto;
-      background: #121212;
-    }
-    
+    /* ===== DASHBOARD COMPONENTS ===== */
     .content-header {
       margin-bottom: 24px;
     }
-    
+
     .content-header h2 {
       font-size: 28px;
-      color: #E0E0E0;
+      color: var(--text-primary);
       margin-bottom: 8px;
     }
-    
+
     .content-header p {
-      color: #B3B3B3;
+      color: var(--text-secondary);
       font-size: 16px;
     }
 
-    /* Cards Grid */
     .cards-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
       gap: 20px;
       margin-bottom: 32px;
     }
-    
+
     .dashboard-card {
-      background: #1E1E1E;
-      border: 1px solid #2A2A2A;
-      border-radius: 8px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-color);
+      border-radius: var(--border-radius);
       padding: 20px;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      transition: var(--transition);
     }
-    
+
     .dashboard-card:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
-      border-color: #FF7A00;
+      box-shadow: var(--shadow);
+      border-color: var(--primary-color);
     }
-    
+
     .card-header {
       display: flex;
       align-items: center;
-      justify-content: between;
       margin-bottom: 16px;
     }
-    
+
     .card-title {
       font-size: 18px;
-      color: #E0E0E0;
+      color: var(--text-primary);
       font-weight: 600;
     }
-    
+
     .card-icon {
       width: 24px;
       height: 24px;
-      background: #FF7A00;
+      background: var(--primary-color);
       border-radius: 4px;
       display: flex;
       align-items: center;
@@ -274,28 +272,185 @@
       font-size: 12px;
     }
 
-    .card-icon p {
-      filter: grayscale(100%);
-    }
-    
-    .card-content {
-      color: #B3B3B3;
-      font-size: 14px;
-      line-height: 1.5;
+    /* ===== METRIC COMPONENTS ===== */
+    .metric-display {
+      margin-bottom: 16px;
     }
 
-    /* Footer */
-    .app-footer {
-      background: #1E1E1E;
-      padding: 16px 24px;
-      border-top: 1px solid #2A2A2A;
-      text-align: center;
-      color: #777;
-      font-size: 12px;
-      flex-shrink: 0;
+    .metric-value {
+      font-size: 2.5em;
+      font-weight: bold;
+      color: var(--text-primary);
+      line-height: 1;
     }
 
-    /* Responsive Design */
+    .metric-label {
+      color: var(--text-muted);
+      font-size: 0.9em;
+      margin-bottom: 8px;
+    }
+
+    .metric-trend {
+      font-size: 0.8em;
+      padding: 4px 8px;
+      border-radius: 12px;
+      display: inline-block;
+    }
+
+    .metric-trend.positive {
+      background-color: rgba(39, 174, 96, 0.2);
+      color: var(--success-color);
+    }
+
+    .metric-breakdown {
+      border-top: 1px solid var(--border-color);
+      padding-top: 12px;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+      font-size: 0.85em;
+    }
+
+    .breakdown-label {
+      color: var(--text-muted);
+    }
+
+    .breakdown-value {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .breakdown-value.success { color: var(--success-color); }
+    .breakdown-value.warning { color: var(--warning-color); }
+
+    /* ===== ACTIVITY COMPONENTS ===== */
+    .dashboard-section {
+      background: var(--bg-secondary);
+      border-radius: var(--border-radius);
+      padding: 20px;
+      margin: 20px 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .activity-list {
+      margin-top: 16px;
+    }
+
+    .activity-item {
+      display: flex;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .activity-item:last-child {
+      border-bottom: none;
+    }
+
+    .activity-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 12px;
+      font-weight: bold;
+    }
+
+    .activity-icon.success {
+      background-color: rgba(39, 174, 96, 0.2);
+      color: var(--success-color);
+    }
+
+    .activity-icon.pending {
+      background-color: rgba(243, 156, 18, 0.2);
+      color: var(--warning-color);
+    }
+
+    .activity-content {
+      flex: 1;
+    }
+
+    .activity-title {
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+
+    .activity-description {
+      color: var(--text-muted);
+      font-size: 0.9em;
+    }
+
+    .activity-time {
+      color: var(--text-muted);
+      font-size: 0.8em;
+    }
+
+    .activity-badge {
+      padding: 4px 8px;
+      border-radius: 12px;
+      font-size: 0.75em;
+      font-weight: 600;
+    }
+
+    .activity-badge.enterprise {
+      background-color: rgba(41, 128, 185, 0.2);
+      color: #2980b9;
+    }
+
+    .activity-badge.growth {
+      background-color: rgba(39, 174, 96, 0.2);
+      color: var(--success-color);
+    }
+
+    .activity-badge.startup {
+      background-color: rgba(243, 156, 18, 0.2);
+      color: var(--warning-color);
+    }
+
+    /* ===== HEALTH COMPONENTS ===== */
+    .health-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-top: 16px;
+    }
+
+    .health-item {
+      display: flex;
+      align-items: center;
+      padding: 12px;
+      background: var(--bg-tertiary);
+      border-radius: 6px;
+    }
+
+    .health-status {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+
+    .health-status.success { background-color: var(--success-color); }
+    .health-status.warning { background-color: var(--warning-color); }
+    .health-status.error { background-color: var(--error-color); }
+
+    .health-title {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9em;
+    }
+
+    .health-metric {
+      color: var(--text-muted);
+      font-size: 0.8em;
+    }
+
+    /* ===== RESPONSIVE DESIGN ===== */
     @media (max-width: 1024px) {
       .side-nav {
         width: 80px;
@@ -345,7 +500,7 @@
       .nav-item.active,
       .nav-item:hover {
         border-left: none;
-        border-bottom-color: #FF7A00;
+        border-bottom-color: var(--primary-color);
       }
       
       .nav-icon {
@@ -374,22 +529,22 @@
       }
     }
 
-    /* Scrollbar Styling */
+    /* ===== SCROLLBAR STYLING ===== */
     ::-webkit-scrollbar {
       width: 6px;
     }
     
     ::-webkit-scrollbar-track {
-      background: #1E1E1E;
+      background: var(--bg-secondary);
     }
     
     ::-webkit-scrollbar-thumb {
-      background: #FF7A00;
+      background: var(--primary-color);
       border-radius: 3px;
     }
     
     ::-webkit-scrollbar-thumb:hover {
-      background: #E56900;
+      background: var(--primary-dark);
     }
   </style>
 </head>
@@ -406,57 +561,57 @@
   ></div>
 
   <!-- Loading Placeholder -->
-  <div id="loadingPlaceholder" style="height:100vh; background:#121212; display:flex;">
+  <div id="loadingPlaceholder" style="height:100vh; background:var(--bg-primary); display:flex;">
     <div class="side-nav" style="padding-top:20px;">
-      <div class="skeleton-card" style="margin:20px; height:32px;"></div>
+      <div class="skeleton-loader" style="margin:20px; height:32px;"></div>
       <div style="padding:0 20px;">
-        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-line" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
+        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
       </div>
     </div>
     
     <div class="main-content" style="flex:1;">
       <div class="app-header">
-        <div class="skeleton-title" style="width:300px; height:32px;"></div>
+        <div class="skeleton-loader" style="width:300px; height:32px;"></div>
       </div>
       <div class="dashboard-content">
-        <div class="skeleton-title" style="width:200px; height:28px; margin-bottom:16px;"></div>
+        <div class="skeleton-loader" style="width:200px; height:28px; margin-bottom:16px;"></div>
         <div class="cards-grid">
-          <div class="skeleton-card">
-            <div class="skeleton-title" style="width:60%;"></div>
-            <div class="skeleton-line" style="width:80%;"></div>
-            <div class="skeleton-line" style="width:90%;"></div>
+          <div class="skeleton-loader" style="height:120px;">
+            <div class="skeleton-loader" style="width:60%; height:20px; margin-bottom:12px;"></div>
+            <div class="skeleton-loader" style="width:80%; height:14px; margin-bottom:8px;"></div>
+            <div class="skeleton-loader" style="width:90%; height:14px; margin-bottom:8px;"></div>
           </div>
-          <div class="skeleton-card">
-            <div class="skeleton-title" style="width:70%;"></div>
-            <div class="skeleton-line" style="width:85%;"></div>
-            <div class="skeleton-line" style="width:75%;"></div>
+          <div class="skeleton-loader" style="height:120px;">
+            <div class="skeleton-loader" style="width:70%; height:20px; margin-bottom:12px;"></div>
+            <div class="skeleton-loader" style="width:85%; height:14px; margin-bottom:8px;"></div>
+            <div class="skeleton-loader" style="width:75%; height:14px; margin-bottom:8px;"></div>
           </div>
-          <div class="skeleton-card">
-            <div class="skeleton-title" style="width:50%;"></div>
-            <div class="skeleton-line" style="width:95%;"></div>
-            <div class="skeleton-line" style="width:70%;"></div>
+          <div class="skeleton-loader" style="height:120px;">
+            <div class="skeleton-loader" style="width:50%; height:20px; margin-bottom:12px;"></div>
+            <div class="skeleton-loader" style="width:95%; height:14px; margin-bottom:8px;"></div>
+            <div class="skeleton-loader" style="width:70%; height:14px; margin-bottom:8px;"></div>
           </div>
-          <div class="skeleton-card">
-            <div class="skeleton-title" style="width:65%;"></div>
-            <div class="skeleton-line" style="width:88%;"></div>
-            <div class="skeleton-line" style="width:82%;"></div>
+          <div class="skeleton-loader" style="height:120px;">
+            <div class="skeleton-loader" style="width:65%; height:20px; margin-bottom:12px;"></div>
+            <div class="skeleton-loader" style="width:88%; height:14px; margin-bottom:8px;"></div>
+            <div class="skeleton-loader" style="width:82%; height:14px; margin-bottom:8px;"></div>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- Fallback Dashboard -->
+  <!-- Fallback Dashboard with Mock Data -->
   <div id="fallbackDashboard" style="display:none; height:100vh;">
     <div class="app-container">
       <!-- Side Navigation -->
       <nav class="side-nav" aria-label="Main navigation">
         <div class="nav-header">
           <img src="https://cdn-icons-png.flaticon.com/512/882/882701.png" 
-               alt="SAP Logo" 
+               alt="Ascend Payments Logo" 
                class="nav-logo">
         </div>
         <ul class="nav-menu">
@@ -468,26 +623,26 @@
           </li>
           <li>
             <a href="#" class="nav-item">
-              <span class="nav-icon">📁</span>
-              <span class="nav-label">Projects</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-item">
               <span class="nav-icon">👥</span>
               <span class="nav-label">Clients</span>
             </a>
           </li>
           <li>
             <a href="#" class="nav-item">
-              <span class="nav-icon">🔧</span>
-              <span class="nav-label">CI/CD</span>
+              <span class="nav-icon">💳</span>
+              <span class="nav-label">Transactions</span>
             </a>
           </li>
           <li>
             <a href="#" class="nav-item">
-              <span class="nav-icon">💳</span>
-              <span class="nav-label">Payments</span>
+              <span class="nav-icon">🔧</span>
+              <span class="nav-label">API Management</span>
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-item">
+              <span class="nav-icon">📊</span>
+              <span class="nav-label">Analytics</span>
             </a>
           </li>
         </ul>
@@ -499,11 +654,11 @@
         <header class="app-header">
           <div class="header-content">
             <div class="header-titles">
-              <h1>SAP Project Phase 4 – Dashboard</h1>
-              <p>Unified CRM, API & Payment Gateway Management</p>
+              <h1>Ascend Payments Platform</h1>
+              <p>Enterprise SaaS Payment Gateway Dashboard</p>
             </div>
             <div class="user-menu">
-              <div class="user-avatar">JD</div>
+              <div class="user-avatar">AP</div>
             </div>
           </div>
         </header>
@@ -511,69 +666,200 @@
         <!-- Dashboard Content -->
         <main class="dashboard-content">
           <div class="content-header">
-            <h2>Overview</h2>
-            <p>Welcome to your unified dashboard. Monitor all activities from one place.</p>
+            <h2>Platform Overview</h2>
+            <p>Monitor your payment gateway performance and client activities in real-time.</p>
           </div>
 
           <!-- Cards Grid -->
           <div class="cards-grid">
             <div class="dashboard-card">
               <div class="card-header">
-                <div class="card-icon"><p>📊</p></div>
-                 &nbsp;<h3 class="card-title">Active Projects</h3> 
+                <div class="card-icon"><p>👥</p></div>
+                 &nbsp;<h3 class="card-title">Active Clients</h3> 
               </div>
               <div class="card-content">
-                <div class="skeleton-card">
-                  <div class="skeleton-title" style="width:60%;"></div>
-                  <div class="skeleton-line" style="width:80%;"></div>
-                  <div class="skeleton-line" style="width:80%;"></div>
+                <div class="metric-display">
+                  <div class="metric-value">42</div>
+                  <div class="metric-label">SaaS Companies</div>
+                  <div class="metric-trend positive">
+                    <span>+12% this month</span>
+                  </div>
                 </div>
-                <p style="color:#777; font-size:12px; margin-top:8px;">Loading project data...</p>
+                <div class="metric-breakdown">
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Enterprise:</span>
+                    <span class="breakdown-value">8 clients</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Growth:</span>
+                    <span class="breakdown-value">24 clients</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Startup:</span>
+                    <span class="breakdown-value">10 clients</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="dashboard-card">
               <div class="card-header">
-                <div class="card-icon"><p>⚡</p></div>
-                &nbsp;<h3 class="card-title">CI/CD Pipeline</h3>
+                <div class="card-icon"><p>💳</p></div>
+                &nbsp;<h3 class="card-title">Transaction Volume</h3>
               </div>
               <div class="card-content">
-                <div class="skeleton-card">
-                  <div class="skeleton-title" style="width:70%;"></div>
-                  <div class="skeleton-line" style="width:90%;"></div>
-                  <div class="skeleton-line" style="width:75%;"></div>
+                <div class="metric-display">
+                  <div class="metric-value">$2.8M</div>
+                  <div class="metric-label">Monthly Processed</div>
+                  <div class="metric-trend positive">
+                    <span>+18% from last month</span>
+                  </div>
                 </div>
-                <p style="color:#777; font-size:12px; margin-top:8px;">Checking pipeline status...</p>
+                <div class="metric-breakdown">
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Success Rate:</span>
+                    <span class="breakdown-value success">99.2%</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Avg Transaction:</span>
+                    <span class="breakdown-value">$89.50</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Chargebacks:</span>
+                    <span class="breakdown-value warning">0.03%</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="dashboard-card">
               <div class="card-header">
-                <div class="card-icon"><p>🧩</p></div>
-                &nbsp;<h3 class="card-title">API Health</h3>
+                <div class="card-icon"><p>🔧</p></div>
+                &nbsp;<h3 class="card-title">API Performance</h3>
               </div>
               <div class="card-content">
-                <div class="skeleton-card">
-                  <div class="skeleton-title" style="width:50%;"></div>
-                  <div class="skeleton-line" style="width:85%;"></div>
-                  <div class="skeleton-line" style="width:70%;"></div>
+                <div class="metric-display">
+                  <div class="metric-value">99.98%</div>
+                  <div class="metric-label">Uptime</div>
+                  <div class="metric-trend positive">
+                    <span>Stable</span>
+                  </div>
                 </div>
-                <p style="color:#777; font-size:12px; margin-top:8px;">Monitoring API endpoints...</p>
+                <div class="metric-breakdown">
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Avg Response:</span>
+                    <span class="breakdown-value success">142ms</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">API Calls Today:</span>
+                    <span class="breakdown-value">284,567</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Error Rate:</span>
+                    <span class="breakdown-value success">0.02%</span>
+                  </div>
+                </div>
               </div>
             </div>
 
             <div class="dashboard-card">
               <div class="card-header">
                 <div class="card-icon"><p>💰</p></div>
-                &nbsp;<h3 class="card-title">Payments Summary</h3>
+                &nbsp;<h3 class="card-title">Revenue Metrics</h3>
               </div>
               <div class="card-content">
-                <div class="skeleton-card">
-                  <div class="skeleton-title" style="width:65%;"></div>
-                  <div class="skeleton-line" style="width:88%;"></div>
-                  <div class="skeleton-line" style="width:82%;"></div>
+                <div class="metric-display">
+                  <div class="metric-value">$84,200</div>
+                  <div class="metric-label">Monthly Revenue</div>
+                  <div class="metric-trend positive">
+                    <span>+22% growth</span>
+                  </div>
                 </div>
-                <p style="color:#777; font-size:12px; margin-top:8px;">Loading payment data...</p>
+                <div class="metric-breakdown">
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Platform Fees:</span>
+                    <span class="breakdown-value">$42,800</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">Transaction Fees:</span>
+                    <span class="breakdown-value">$41,400</span>
+                  </div>
+                  <div class="breakdown-item">
+                    <span class="breakdown-label">MRR Growth:</span>
+                    <span class="breakdown-value success">15.2%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity Section -->
+          <div class="dashboard-section">
+            <h3>Recent Client Onboarding</h3>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon success">✓</div>
+                <div class="activity-content">
+                  <div class="activity-title">TechFlow SaaS</div>
+                  <div class="activity-description">Enterprise plan - $50K MRR</div>
+                  <div class="activity-time">2 hours ago</div>
+                </div>
+                <div class="activity-badge enterprise">Enterprise</div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon success">✓</div>
+                <div class="activity-content">
+                  <div class="activity-title">DataSphere Analytics</div>
+                  <div class="activity-description">Growth plan - $25K MRR</div>
+                  <div class="activity-time">5 hours ago</div>
+                </div>
+                <div class="activity-badge growth">Growth</div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon pending">⏳</div>
+                <div class="activity-content">
+                  <div class="activity-title">CloudSecure API</div>
+                  <div class="activity-description">Underwriting in progress</div>
+                  <div class="activity-time">Yesterday</div>
+                </div>
+                <div class="activity-badge startup">Startup</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- System Health Section -->
+          <div class="dashboard-section">
+            <h3>System Health & Monitoring</h3>
+            <div class="health-grid">
+              <div class="health-item">
+                <div class="health-status success"></div>
+                <div class="health-info">
+                  <div class="health-title">Payment Processing</div>
+                  <div class="health-metric">All systems operational</div>
+                </div>
+              </div>
+              <div class="health-item">
+                <div class="health-status success"></div>
+                <div class="health-info">
+                  <div class="health-title">Subscription Engine</div>
+                  <div class="health-metric">Processing 1,245 renewals/hour</div>
+                </div>
+              </div>
+              <div class="health-item">
+                <div class="health-status warning"></div>
+                <div class="health-info">
+                  <div class="health-title">3D Secure Service</div>
+                  <div class="health-metric">Elevated latency in EU region</div>
+                </div>
+              </div>
+              <div class="health-item">
+                <div class="health-status success"></div>
+                <div class="health-info">
+                  <div class="health-title">Fraud Detection</div>
+                  <div class="health-metric">Blocked 23 suspicious transactions</div>
+                </div>
               </div>
             </div>
           </div>
@@ -581,24 +867,195 @@
 
         <!-- Footer -->
         <footer class="app-footer">
-          Preview Mode • Full functionality available when component loads
+          Ascend Payments Platform • Live Demo Mode • v1.0.0
         </footer>
       </div>
     </div>
   </div>
 
   <script>
-    // Component load detection
-    setTimeout(function(){
-      const container = document.querySelector('[data-sap-ui-component]');
-      const placeholder = document.getElementById('loadingPlaceholder');
-      const fallback = document.getElementById('fallbackDashboard');
-      
-      if (!container || container.innerHTML.trim() === '') {
-        placeholder.style.display = 'none';
-        fallback.style.display = 'block';
+    // ===== DASHBOARD MODULE =====
+    const DashboardModule = {
+      // Configuration
+      config: {
+        ui5LoadTimeout: 3000,
+        refreshInterval: 30000
+      },
+
+      // Mock Data Repository
+      data: {
+        clients: {
+          total: 42,
+          enterprise: 8,
+          growth: 24,
+          startup: 10,
+          trend: '+12%'
+        },
+        transactions: {
+          volume: '$2.8M',
+          successRate: '99.2%',
+          avgTransaction: '$89.50',
+          chargebacks: '0.03%',
+          trend: '+18%'
+        },
+        api: {
+          uptime: '99.98%',
+          responseTime: '142ms',
+          callsToday: '284,567',
+          errorRate: '0.02%',
+          status: 'Stable'
+        },
+        revenue: {
+          monthly: '$84,200',
+          platformFees: '$42,800',
+          transactionFees: '$41,400',
+          growthRate: '15.2%',
+          trend: '+22%'
+        },
+        activities: [
+          {
+            client: 'TechFlow SaaS',
+            plan: 'Enterprise plan - $50K MRR',
+            time: '2 hours ago',
+            status: 'success',
+            tier: 'enterprise'
+          },
+          {
+            client: 'DataSphere Analytics',
+            plan: 'Growth plan - $25K MRR',
+            time: '5 hours ago',
+            status: 'success',
+            tier: 'growth'
+          },
+          {
+            client: 'CloudSecure API',
+            plan: 'Underwriting in progress',
+            time: 'Yesterday',
+            status: 'pending',
+            tier: 'startup'
+          }
+        ],
+        systemHealth: [
+          {
+            service: 'Payment Processing',
+            status: 'success',
+            metric: 'All systems operational'
+          },
+          {
+            service: 'Subscription Engine',
+            status: 'success',
+            metric: 'Processing 1,245 renewals/hour'
+          },
+          {
+            service: '3D Secure Service',
+            status: 'warning',
+            metric: 'Elevated latency in EU region'
+          },
+          {
+            service: 'Fraud Detection',
+            status: 'success',
+            metric: 'Blocked 23 suspicious transactions'
+          }
+        ]
+      },
+
+      // Initialize the dashboard
+      init() {
+        this.checkUI5Component();
+        this.setupEventListeners();
+      },
+
+      // Check if UI5 component loaded successfully
+      checkUI5Component() {
+        setTimeout(() => {
+          const container = document.querySelector('[data-sap-ui-component]');
+          const placeholder = document.getElementById('loadingPlaceholder');
+          const fallback = document.getElementById('fallbackDashboard');
+          
+          if (!container || container.innerHTML.trim() === '') {
+            placeholder.style.display = 'none';
+            fallback.style.display = 'block';
+            this.startDataRefresh();
+          }
+        }, this.config.ui5LoadTimeout);
+      },
+
+      // Setup event listeners for interactive elements
+      setupEventListeners() {
+        // Navigation click handlers
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.nav-item')) {
+            e.preventDefault();
+            this.handleNavigation(e.target.closest('.nav-item'));
+          }
+        });
+
+        // Card interaction handlers
+        document.addEventListener('click', (e) => {
+          if (e.target.closest('.dashboard-card')) {
+            this.handleCardInteraction(e.target.closest('.dashboard-card'));
+          }
+        });
+      },
+
+      // Handle navigation clicks
+      handleNavigation(navItem) {
+        // Remove active class from all nav items
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        
+        // Add active class to clicked item
+        navItem.classList.add('active');
+        
+        // Here you would typically load the corresponding module
+        console.log('Navigating to:', navItem.querySelector('.nav-label').textContent);
+      },
+
+      // Handle card interactions
+      handleCardInteraction(card) {
+        const title = card.querySelector('.card-title').textContent;
+        console.log('Card clicked:', title);
+        
+        // Add visual feedback
+        card.style.transform = 'scale(0.98)';
+        setTimeout(() => {
+          card.style.transform = '';
+        }, 150);
+      },
+
+      // Start periodic data refresh
+      startDataRefresh() {
+        setInterval(() => {
+          this.refreshMockData();
+        }, this.config.refreshInterval);
+      },
+
+      // Refresh mock data (simulate real-time updates)
+      refreshMockData() {
+        // Simulate data updates
+        this.data.transactions.volume = this.generateRandomAmount(2.5, 3.0);
+        this.data.api.callsToday = this.generateRandomNumber(250000, 300000).toLocaleString();
+        
+        console.log('Data refreshed at:', new Date().toLocaleTimeString());
+      },
+
+      // Utility function to generate random amounts
+      generateRandomAmount(min, max) {
+        const amount = (Math.random() * (max - min) + min).toFixed(1);
+        return `$${amount}M`;
+      },
+
+      // Utility function to generate random numbers
+      generateRandomNumber(min, max) {
+        return Math.floor(Math.random() * (max - min + 1)) + min;
       }
-    }, 3000);
+    };
+
+    // Initialize the dashboard when DOM is loaded
+    document.addEventListener('DOMContentLoaded', () => {
+      DashboardModule.init();
+    });
   </script>
 </body>
 </html>
