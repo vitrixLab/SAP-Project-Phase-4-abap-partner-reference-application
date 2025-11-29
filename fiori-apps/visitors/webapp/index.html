@@ -4,37 +4,17 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Ascend Payments Platform - Unified SaaS Payment Gateway</title>
-  <meta name="description" content="Enterprise-grade payment gateway for subscription businesses. Monitor clients, transactions, and API performance from one dashboard." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/882/882701.png">
-  <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/882/882701.png" />
   
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Ascend Payments Platform - Unified Dashboard" />
-  <meta property="og:description" content="Enterprise payment gateway for SaaS businesses with unified monitoring." />
-  <meta property="og:image" content="https://yourdomain.com/assets/social-preview.png" />
-  <meta property="og:url" content="https://yourdomain.com" />
-  <meta property="og:type" content="website" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ascend Payments Platform" />
-  <meta name="twitter:description" content="Unified payment gateway dashboard for SaaS businesses" />
-  <meta name="twitter:image" content="https://yourdomain.com/assets/social-preview.png" />
-
-  <!-- SAPUI5 / OpenUI5 bootstrap -->
-  <script
-    id="sap-ui-bootstrap"
-    src="https://ui5.sap.com/resources/sap-ui-core.js"
-    data-sap-ui-theme="sap_fiori_3_dark"
-    data-sap-ui-async="true"
-    data-sap-ui-compatVersion="edge"
-    data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-    data-sap-ui-resourceroots='{"my.company.app": "./"}'
-  ></script>
-
+  <!-- Component Styles -->
+  <link rel="stylesheet" href="components/metrics-card.css">
+  <link rel="stylesheet" href="components/activity-list.css">
+  <link rel="stylesheet" href="components/health-status.css">
+  <link rel="stylesheet" href="components/loading-states.css">
+  
   <style>
     /* ===== CSS VARIABLES & RESET ===== */
     :root {
@@ -69,22 +49,6 @@
       background: var(--bg-primary);
       overflow: hidden;
     }
-
-    /* ===== LOADING ANIMATIONS ===== */
-    @keyframes shimmer {
-      0% { background-position: -200px 0; }
-      100% { background-position: 200px 0; }
-    }
-
-    .skeleton-loader {
-      background: linear-gradient(90deg, var(--bg-secondary) 25%, var(--bg-tertiary) 50%, var(--bg-secondary) 75%);
-      background-size: 400px 100%;
-      animation: shimmer 1.4s infinite;
-      border-radius: 4px;
-    }
-
-    .skeleton-title { height: 20px; margin-bottom: 12px; }
-    .skeleton-line { height: 14px; margin-bottom: 8px; }
 
     /* ===== LAYOUT COMPONENTS ===== */
     .app-container {
@@ -235,219 +199,12 @@
       margin-bottom: 32px;
     }
 
-    .dashboard-card {
-      background: var(--bg-secondary);
-      border: 1px solid var(--border-color);
-      border-radius: var(--border-radius);
-      padding: 20px;
-      transition: var(--transition);
-    }
-
-    .dashboard-card:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow);
-      border-color: var(--primary-color);
-    }
-
-    .card-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 16px;
-    }
-
-    .card-title {
-      font-size: 18px;
-      color: var(--text-primary);
-      font-weight: 600;
-    }
-
-    .card-icon {
-      width: 24px;
-      height: 24px;
-      background: var(--primary-color);
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    /* ===== METRIC COMPONENTS ===== */
-    .metric-display {
-      margin-bottom: 16px;
-    }
-
-    .metric-value {
-      font-size: 2.5em;
-      font-weight: bold;
-      color: var(--text-primary);
-      line-height: 1;
-    }
-
-    .metric-label {
-      color: var(--text-muted);
-      font-size: 0.9em;
-      margin-bottom: 8px;
-    }
-
-    .metric-trend {
-      font-size: 0.8em;
-      padding: 4px 8px;
-      border-radius: 12px;
-      display: inline-block;
-    }
-
-    .metric-trend.positive {
-      background-color: rgba(39, 174, 96, 0.2);
-      color: var(--success-color);
-    }
-
-    .metric-breakdown {
-      border-top: 1px solid var(--border-color);
-      padding-top: 12px;
-    }
-
-    .breakdown-item {
-      display: flex;
-      justify-content: space-between;
-      margin-bottom: 6px;
-      font-size: 0.85em;
-    }
-
-    .breakdown-label {
-      color: var(--text-muted);
-    }
-
-    .breakdown-value {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .breakdown-value.success { color: var(--success-color); }
-    .breakdown-value.warning { color: var(--warning-color); }
-
-    /* ===== ACTIVITY COMPONENTS ===== */
     .dashboard-section {
       background: var(--bg-secondary);
       border-radius: var(--border-radius);
       padding: 20px;
       margin: 20px 0;
       box-shadow: 0 1px 3px rgba(0,0,0,0.1);
-    }
-
-    .activity-list {
-      margin-top: 16px;
-    }
-
-    .activity-item {
-      display: flex;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--border-color);
-    }
-
-    .activity-item:last-child {
-      border-bottom: none;
-    }
-
-    .activity-icon {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin-right: 12px;
-      font-weight: bold;
-    }
-
-    .activity-icon.success {
-      background-color: rgba(39, 174, 96, 0.2);
-      color: var(--success-color);
-    }
-
-    .activity-icon.pending {
-      background-color: rgba(243, 156, 18, 0.2);
-      color: var(--warning-color);
-    }
-
-    .activity-content {
-      flex: 1;
-    }
-
-    .activity-title {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
-    .activity-description {
-      color: var(--text-muted);
-      font-size: 0.9em;
-    }
-
-    .activity-time {
-      color: var(--text-muted);
-      font-size: 0.8em;
-    }
-
-    .activity-badge {
-      padding: 4px 8px;
-      border-radius: 12px;
-      font-size: 0.75em;
-      font-weight: 600;
-    }
-
-    .activity-badge.enterprise {
-      background-color: rgba(41, 128, 185, 0.2);
-      color: #2980b9;
-    }
-
-    .activity-badge.growth {
-      background-color: rgba(39, 174, 96, 0.2);
-      color: var(--success-color);
-    }
-
-    .activity-badge.startup {
-      background-color: rgba(243, 156, 18, 0.2);
-      color: var(--warning-color);
-    }
-
-    /* ===== HEALTH COMPONENTS ===== */
-    .health-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 16px;
-      margin-top: 16px;
-    }
-
-    .health-item {
-      display: flex;
-      align-items: center;
-      padding: 12px;
-      background: var(--bg-tertiary);
-      border-radius: 6px;
-    }
-
-    .health-status {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      margin-right: 12px;
-    }
-
-    .health-status.success { background-color: var(--success-color); }
-    .health-status.warning { background-color: var(--warning-color); }
-    .health-status.error { background-color: var(--error-color); }
-
-    .health-title {
-      font-weight: 600;
-      color: var(--text-primary);
-      font-size: 0.9em;
-    }
-
-    .health-metric {
-      color: var(--text-muted);
-      font-size: 0.8em;
     }
 
     /* ===== RESPONSIVE DESIGN ===== */
@@ -561,50 +318,11 @@
   ></div>
 
   <!-- Loading Placeholder -->
-  <div id="loadingPlaceholder" style="height:100vh; background:var(--bg-primary); display:flex;">
-    <div class="side-nav" style="padding-top:20px;">
-      <div class="skeleton-loader" style="margin:20px; height:32px;"></div>
-      <div style="padding:0 20px;">
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-      </div>
-    </div>
-    
-    <div class="main-content" style="flex:1;">
-      <div class="app-header">
-        <div class="skeleton-loader" style="width:300px; height:32px;"></div>
-      </div>
-      <div class="dashboard-content">
-        <div class="skeleton-loader" style="width:200px; height:28px; margin-bottom:16px;"></div>
-        <div class="cards-grid">
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:60%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:80%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:90%; height:14px; margin-bottom:8px;"></div>
-          </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:70%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:85%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:75%; height:14px; margin-bottom:8px;"></div>
-          </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:50%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:95%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:70%; height:14px; margin-bottom:8px;"></div>
-          </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:65%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:88%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:82%; height:14px; margin-bottom:8px;"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+  <div id="loadingPlaceholder" class="loading-container">
+    <!-- Loading content will be injected by loading-states.js -->
   </div>
 
-  <!-- Fallback Dashboard with Mock Data -->
+  <!-- Fallback Dashboard with Component Architecture -->
   <div id="fallbackDashboard" style="display:none; height:100vh;">
     <div class="app-container">
       <!-- Side Navigation -->
@@ -616,31 +334,31 @@
         </div>
         <ul class="nav-menu">
           <li>
-            <a href="#" class="nav-item active">
+            <a href="#" class="nav-item active" data-route="dashboard">
               <span class="nav-icon">🏠</span>
               <span class="nav-label">Dashboard</span>
             </a>
           </li>
           <li>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" data-route="clients">
               <span class="nav-icon">👥</span>
               <span class="nav-label">Clients</span>
             </a>
           </li>
           <li>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" data-route="transactions">
               <span class="nav-icon">💳</span>
               <span class="nav-label">Transactions</span>
             </a>
           </li>
           <li>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" data-route="api">
               <span class="nav-icon">🔧</span>
               <span class="nav-label">API Management</span>
             </a>
           </li>
           <li>
-            <a href="#" class="nav-item">
+            <a href="#" class="nav-item" data-route="analytics">
               <span class="nav-icon">📊</span>
               <span class="nav-label">Analytics</span>
             </a>
@@ -670,197 +388,24 @@
             <p>Monitor your payment gateway performance and client activities in real-time.</p>
           </div>
 
-          <!-- Cards Grid -->
-          <div class="cards-grid">
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>👥</p></div>
-                 &nbsp;<h3 class="card-title">Active Clients</h3> 
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">42</div>
-                  <div class="metric-label">SaaS Companies</div>
-                  <div class="metric-trend positive">
-                    <span>+12% this month</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Enterprise:</span>
-                    <span class="breakdown-value">8 clients</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Growth:</span>
-                    <span class="breakdown-value">24 clients</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Startup:</span>
-                    <span class="breakdown-value">10 clients</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>💳</p></div>
-                &nbsp;<h3 class="card-title">Transaction Volume</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">$2.8M</div>
-                  <div class="metric-label">Monthly Processed</div>
-                  <div class="metric-trend positive">
-                    <span>+18% from last month</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Success Rate:</span>
-                    <span class="breakdown-value success">99.2%</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Avg Transaction:</span>
-                    <span class="breakdown-value">$89.50</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Chargebacks:</span>
-                    <span class="breakdown-value warning">0.03%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>🔧</p></div>
-                &nbsp;<h3 class="card-title">API Performance</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">99.98%</div>
-                  <div class="metric-label">Uptime</div>
-                  <div class="metric-trend positive">
-                    <span>Stable</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Avg Response:</span>
-                    <span class="breakdown-value success">142ms</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">API Calls Today:</span>
-                    <span class="breakdown-value">284,567</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Error Rate:</span>
-                    <span class="breakdown-value success">0.02%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>💰</p></div>
-                &nbsp;<h3 class="card-title">Revenue Metrics</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">$84,200</div>
-                  <div class="metric-label">Monthly Revenue</div>
-                  <div class="metric-trend positive">
-                    <span>+22% growth</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Platform Fees:</span>
-                    <span class="breakdown-value">$42,800</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Transaction Fees:</span>
-                    <span class="breakdown-value">$41,400</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">MRR Growth:</span>
-                    <span class="breakdown-value success">15.2%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+          <!-- Metrics Cards Grid -->
+          <div id="metricsCardsContainer" class="cards-grid">
+            <!-- Metrics cards will be injected by metrics-cards.js -->
           </div>
 
           <!-- Recent Activity Section -->
           <div class="dashboard-section">
             <h3>Recent Client Onboarding</h3>
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="activity-icon success">✓</div>
-                <div class="activity-content">
-                  <div class="activity-title">TechFlow SaaS</div>
-                  <div class="activity-description">Enterprise plan - $50K MRR</div>
-                  <div class="activity-time">2 hours ago</div>
-                </div>
-                <div class="activity-badge enterprise">Enterprise</div>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-icon success">✓</div>
-                <div class="activity-content">
-                  <div class="activity-title">DataSphere Analytics</div>
-                  <div class="activity-description">Growth plan - $25K MRR</div>
-                  <div class="activity-time">5 hours ago</div>
-                </div>
-                <div class="activity-badge growth">Growth</div>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-icon pending">⏳</div>
-                <div class="activity-content">
-                  <div class="activity-title">CloudSecure API</div>
-                  <div class="activity-description">Underwriting in progress</div>
-                  <div class="activity-time">Yesterday</div>
-                </div>
-                <div class="activity-badge startup">Startup</div>
-              </div>
+            <div id="activityListContainer" class="activity-list">
+              <!-- Activity items will be injected by activity-list.js -->
             </div>
           </div>
 
           <!-- System Health Section -->
           <div class="dashboard-section">
             <h3>System Health & Monitoring</h3>
-            <div class="health-grid">
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Payment Processing</div>
-                  <div class="health-metric">All systems operational</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Subscription Engine</div>
-                  <div class="health-metric">Processing 1,245 renewals/hour</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status warning"></div>
-                <div class="health-info">
-                  <div class="health-title">3D Secure Service</div>
-                  <div class="health-metric">Elevated latency in EU region</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Fraud Detection</div>
-                  <div class="health-metric">Blocked 23 suspicious transactions</div>
-                </div>
-              </div>
+            <div id="healthStatusContainer" class="health-grid">
+              <!-- Health status items will be injected by health-status.js -->
             </div>
           </div>
         </main>
@@ -873,189 +418,279 @@
     </div>
   </div>
 
+  <!-- Component Scripts -->
+  <script src="components/data-service.js"></script>
+  <script src="components/metrics-cards.js"></script>
+  <script src="components/activity-list.js"></script>
+  <script src="components/health-status.js"></script>
+  <script src="components/loading-states.js"></script>
+  <script src="components/router.js"></script>
+
+  <!-- Main Application Script -->
   <script>
-    // ===== DASHBOARD MODULE =====
-    const DashboardModule = {
+    // ===== MAIN APPLICATION MODULE =====
+    const App = {
       // Configuration
       config: {
         ui5LoadTimeout: 3000,
-        refreshInterval: 30000
+        refreshInterval: 30000,
+        apiEndpoints: {
+          metrics: '/api/v1/metrics',
+          activities: '/api/v1/activities',
+          health: '/api/v1/health',
+          clients: '/api/v1/clients'
+        }
       },
 
-      // Mock Data Repository
-      data: {
-        clients: {
-          total: 42,
-          enterprise: 8,
-          growth: 24,
-          startup: 10,
-          trend: '+12%'
-        },
-        transactions: {
-          volume: '$2.8M',
-          successRate: '99.2%',
-          avgTransaction: '$89.50',
-          chargebacks: '0.03%',
-          trend: '+18%'
-        },
-        api: {
-          uptime: '99.98%',
-          responseTime: '142ms',
-          callsToday: '284,567',
-          errorRate: '0.02%',
-          status: 'Stable'
-        },
-        revenue: {
-          monthly: '$84,200',
-          platformFees: '$42,800',
-          transactionFees: '$41,400',
-          growthRate: '15.2%',
-          trend: '+22%'
-        },
-        activities: [
-          {
-            client: 'TechFlow SaaS',
-            plan: 'Enterprise plan - $50K MRR',
-            time: '2 hours ago',
-            status: 'success',
-            tier: 'enterprise'
-          },
-          {
-            client: 'DataSphere Analytics',
-            plan: 'Growth plan - $25K MRR',
-            time: '5 hours ago',
-            status: 'success',
-            tier: 'growth'
-          },
-          {
-            client: 'CloudSecure API',
-            plan: 'Underwriting in progress',
-            time: 'Yesterday',
-            status: 'pending',
-            tier: 'startup'
-          }
-        ],
-        systemHealth: [
-          {
-            service: 'Payment Processing',
-            status: 'success',
-            metric: 'All systems operational'
-          },
-          {
-            service: 'Subscription Engine',
-            status: 'success',
-            metric: 'Processing 1,245 renewals/hour'
-          },
-          {
-            service: '3D Secure Service',
-            status: 'warning',
-            metric: 'Elevated latency in EU region'
-          },
-          {
-            service: 'Fraud Detection',
-            status: 'success',
-            metric: 'Blocked 23 suspicious transactions'
-          }
-        ]
+      // Application state
+      state: {
+        currentRoute: 'dashboard',
+        isLoading: false,
+        lastUpdate: null
       },
 
-      // Initialize the dashboard
-      init() {
-        this.checkUI5Component();
-        this.setupEventListeners();
+      // Initialize the application
+      async init() {
+        try {
+          console.log('🚀 Initializing Ascend Payments Platform...');
+          
+          // Check if UI5 component loads
+          await this.checkUI5Component();
+          
+          // Initialize components
+          await this.initializeComponents();
+          
+          // Setup event listeners
+          this.setupEventListeners();
+          
+          // Load initial data
+          await this.loadInitialData();
+          
+          // Start background updates
+          this.startBackgroundUpdates();
+          
+          console.log('✅ Application initialized successfully');
+          
+        } catch (error) {
+          console.error('❌ Application initialization failed:', error);
+          this.handleError(error);
+        }
       },
 
       // Check if UI5 component loaded successfully
-      checkUI5Component() {
-        setTimeout(() => {
-          const container = document.querySelector('[data-sap-ui-component]');
-          const placeholder = document.getElementById('loadingPlaceholder');
-          const fallback = document.getElementById('fallbackDashboard');
-          
-          if (!container || container.innerHTML.trim() === '') {
-            placeholder.style.display = 'none';
-            fallback.style.display = 'block';
-            this.startDataRefresh();
-          }
-        }, this.config.ui5LoadTimeout);
+      async checkUI5Component() {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const container = document.querySelector('[data-sap-ui-component]');
+            const placeholder = document.getElementById('loadingPlaceholder');
+            const fallback = document.getElementById('fallbackDashboard');
+            
+            if (!container || container.innerHTML.trim() === '') {
+              placeholder.style.display = 'none';
+              fallback.style.display = 'block';
+              resolve(false);
+            } else {
+              resolve(true);
+            }
+          }, this.config.ui5LoadTimeout);
+        });
       },
 
-      // Setup event listeners for interactive elements
+      // Initialize all components
+      async initializeComponents() {
+        // Show loading states
+        LoadingStates.showMetricsLoading();
+        LoadingStates.showActivitiesLoading();
+        LoadingStates.showHealthLoading();
+
+        // Initialize components
+        await MetricsCardsComponent.init('metricsCardsContainer');
+        await ActivityListComponent.init('activityListContainer');
+        await HealthStatusComponent.init('healthStatusContainer');
+        
+        // Initialize router
+        Router.init();
+      },
+
+      // Setup global event listeners
       setupEventListeners() {
-        // Navigation click handlers
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.nav-item')) {
-            e.preventDefault();
-            this.handleNavigation(e.target.closest('.nav-item'));
+        // Global error handling
+        window.addEventListener('error', this.handleGlobalError.bind(this));
+        window.addEventListener('unhandledrejection', this.handlePromiseRejection.bind(this));
+
+        // Visibility change (pause/resume updates when tab is inactive)
+        document.addEventListener('visibilitychange', this.handleVisibilityChange.bind(this));
+
+        // Online/offline detection
+        window.addEventListener('online', this.handleOnlineStatus.bind(this));
+        window.addEventListener('offline', this.handleOfflineStatus.bind(this));
+      },
+
+      // Load initial data for all components
+      async loadInitialData() {
+        this.state.isLoading = true;
+        
+        try {
+          const [metrics, activities, health] = await Promise.all([
+            DataService.fetchMetrics(),
+            DataService.fetchActivities(),
+            DataService.fetchHealthStatus()
+          ]);
+
+          // Update components with real data
+          MetricsCardsComponent.render(metrics);
+          ActivityListComponent.render(activities);
+          HealthStatusComponent.render(health);
+
+          this.state.lastUpdate = new Date();
+          this.state.isLoading = false;
+
+          console.log('📊 Initial data loaded successfully');
+
+        } catch (error) {
+          console.error('Failed to load initial data:', error);
+          
+          // Fallback to mock data
+          this.useMockData();
+          this.state.isLoading = false;
+        }
+      },
+
+      // Use mock data as fallback
+      useMockData() {
+        console.warn('Using mock data as fallback');
+        
+        const mockMetrics = DataService.getMockMetrics();
+        const mockActivities = DataService.getMockActivities();
+        const mockHealth = DataService.getMockHealthStatus();
+
+        MetricsCardsComponent.render(mockMetrics);
+        ActivityListComponent.render(mockActivities);
+        HealthStatusComponent.render(mockHealth);
+      },
+
+      // Start background data updates
+      startBackgroundUpdates() {
+        // Update data periodically
+        setInterval(async () => {
+          if (!this.state.isLoading && document.visibilityState === 'visible') {
+            await this.refreshData();
           }
-        });
-
-        // Card interaction handlers
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.dashboard-card')) {
-            this.handleCardInteraction(e.target.closest('.dashboard-card'));
-          }
-        });
-      },
-
-      // Handle navigation clicks
-      handleNavigation(navItem) {
-        // Remove active class from all nav items
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        
-        // Add active class to clicked item
-        navItem.classList.add('active');
-        
-        // Here you would typically load the corresponding module
-        console.log('Navigating to:', navItem.querySelector('.nav-label').textContent);
-      },
-
-      // Handle card interactions
-      handleCardInteraction(card) {
-        const title = card.querySelector('.card-title').textContent;
-        console.log('Card clicked:', title);
-        
-        // Add visual feedback
-        card.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-          card.style.transform = '';
-        }, 150);
-      },
-
-      // Start periodic data refresh
-      startDataRefresh() {
-        setInterval(() => {
-          this.refreshMockData();
         }, this.config.refreshInterval);
+
+        // Real-time updates for critical metrics
+        setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            this.refreshCriticalMetrics();
+          }
+        }, 10000); // Every 10 seconds for critical data
       },
 
-      // Refresh mock data (simulate real-time updates)
-      refreshMockData() {
-        // Simulate data updates
-        this.data.transactions.volume = this.generateRandomAmount(2.5, 3.0);
-        this.data.api.callsToday = this.generateRandomNumber(250000, 300000).toLocaleString();
+      // Refresh all data
+      async refreshData() {
+        try {
+          const [metrics, activities, health] = await Promise.all([
+            DataService.fetchMetrics(),
+            DataService.fetchActivities(),
+            DataService.fetchHealthStatus()
+          ]);
+
+          MetricsCardsComponent.update(metrics);
+          ActivityListComponent.update(activities);
+          HealthStatusComponent.update(health);
+
+          this.state.lastUpdate = new Date();
+          
+          // Show update notification
+          this.showUpdateNotification();
+
+        } catch (error) {
+          console.warn('Background update failed:', error);
+        }
+      },
+
+      // Refresh only critical metrics (faster updates)
+      async refreshCriticalMetrics() {
+        try {
+          const metrics = await DataService.fetchMetrics();
+          MetricsCardsComponent.update(metrics);
+        } catch (error) {
+          console.warn('Critical metrics update failed:', error);
+        }
+      },
+
+      // Show update notification
+      showUpdateNotification() {
+        // Could be implemented with a toast notification
+        console.log('Data updated at:', new Date().toLocaleTimeString());
+      },
+
+      // Error handlers
+      handleGlobalError(event) {
+        console.error('Global error:', event.error);
+        this.showErrorNotification('An unexpected error occurred');
+      },
+
+      handlePromiseRejection(event) {
+        console.error('Unhandled promise rejection:', event.reason);
+        this.showErrorNotification('Async operation failed');
+      },
+
+      handleVisibilityChange() {
+        if (document.visibilityState === 'visible') {
+          // Tab became active, refresh data
+          this.refreshData();
+        }
+      },
+
+      handleOnlineStatus() {
+        console.log('Application is online');
+        this.refreshData();
+      },
+
+      handleOfflineStatus() {
+        console.warn('Application is offline');
+        this.showErrorNotification('You are currently offline');
+      },
+
+      handleError(error) {
+        console.error('Application error:', error);
+        this.showErrorNotification(error.message || 'An error occurred');
+      },
+
+      showErrorNotification(message) {
+        // Simple error notification - can be enhanced with a proper UI component
+        const notification = document.createElement('div');
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: var(--error-color);
+          color: white;
+          padding: 12px 16px;
+          border-radius: var(--border-radius);
+          z-index: 10000;
+          box-shadow: var(--shadow);
+        `;
+        notification.textContent = message;
         
-        console.log('Data refreshed at:', new Date().toLocaleTimeString());
-      },
-
-      // Utility function to generate random amounts
-      generateRandomAmount(min, max) {
-        const amount = (Math.random() * (max - min) + min).toFixed(1);
-        return `$${amount}M`;
-      },
-
-      // Utility function to generate random numbers
-      generateRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          document.body.removeChild(notification);
+        }, 5000);
       }
     };
 
-    // Initialize the dashboard when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      DashboardModule.init();
-    });
+    // Initialize application when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => App.init());
+    } else {
+      App.init();
+    }
+
+    // Export for global access if needed
+    window.AscendPaymentsApp = App;
   </script>
 </body>
 </html>
