@@ -4,37 +4,11 @@
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
   <title>Ascend Payments Platform - Unified SaaS Payment Gateway</title>
-  <meta name="description" content="Enterprise-grade payment gateway for subscription businesses. Monitor clients, transactions, and API performance from one dashboard." />
   
   <!-- Favicon -->
   <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/882/882701.png">
-  <link rel="shortcut icon" type="image/x-icon" href="https://cdn-icons-png.flaticon.com/512/882/882701.png" />
   
-  <!-- Open Graph / Social Media -->
-  <meta property="og:title" content="Ascend Payments Platform - Unified Dashboard" />
-  <meta property="og:description" content="Enterprise payment gateway for SaaS businesses with unified monitoring." />
-  <meta property="og:image" content="https://yourdomain.com/assets/social-preview.png" />
-  <meta property="og:url" content="https://yourdomain.com" />
-  <meta property="og:type" content="website" />
-
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Ascend Payments Platform" />
-  <meta name="twitter:description" content="Unified payment gateway dashboard for SaaS businesses" />
-  <meta name="twitter:image" content="https://yourdomain.com/assets/social-preview.png" />
-
-  <!-- SAPUI5 / OpenUI5 bootstrap -->
-  <script
-    id="sap-ui-bootstrap"
-    src="https://ui5.sap.com/resources/sap-ui-core.js"
-    data-sap-ui-theme="sap_fiori_3_dark"
-    data-sap-ui-async="true"
-    data-sap-ui-compatVersion="edge"
-    data-sap-ui-oninit="module:sap/ui/core/ComponentSupport"
-    data-sap-ui-resourceroots='{"my.company.app": "./"}'
-  ></script>
-
   <style>
     /* ===== CSS VARIABLES & RESET ===== */
     :root {
@@ -74,6 +48,18 @@
     @keyframes shimmer {
       0% { background-position: -200px 0; }
       100% { background-position: 200px 0; }
+    }
+
+    @keyframes highlight {
+      0% { background-color: transparent; }
+      50% { background-color: rgba(255, 122, 0, 0.1); }
+      100% { background-color: transparent; }
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.02); }
+      100% { transform: scale(1); }
     }
 
     .skeleton-loader {
@@ -125,6 +111,16 @@
       background: var(--bg-primary);
     }
 
+    .app-footer {
+      background: var(--bg-secondary);
+      padding: 16px 24px;
+      border-top: 1px solid var(--border-color);
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
     /* ===== NAVIGATION COMPONENTS ===== */
     .nav-header {
       padding: 0 20px 20px;
@@ -149,6 +145,7 @@
       text-decoration: none;
       transition: var(--transition);
       border-left: 3px solid transparent;
+      cursor: pointer;
     }
 
     .nav-item:hover {
@@ -241,6 +238,7 @@
       border-radius: var(--border-radius);
       padding: 20px;
       transition: var(--transition);
+      cursor: pointer;
     }
 
     .dashboard-card:hover {
@@ -270,6 +268,7 @@
       align-items: center;
       justify-content: center;
       font-size: 12px;
+      margin-right: 12px;
     }
 
     /* ===== METRIC COMPONENTS ===== */
@@ -344,6 +343,8 @@
       align-items: center;
       padding: 12px 0;
       border-bottom: 1px solid var(--border-color);
+      transition: var(--transition);
+      cursor: pointer;
     }
 
     .activity-item:last-child {
@@ -426,6 +427,8 @@
       padding: 12px;
       background: var(--bg-tertiary);
       border-radius: 6px;
+      transition: var(--transition);
+      cursor: pointer;
     }
 
     .health-status {
@@ -546,374 +549,208 @@
     ::-webkit-scrollbar-thumb:hover {
       background: var(--primary-dark);
     }
+
+    /* ===== UTILITY CLASSES ===== */
+    .hidden {
+      display: none !important;
+    }
+
+    .text-center {
+      text-align: center;
+    }
+
+    .text-success {
+      color: var(--success-color);
+    }
+
+    .text-warning {
+      color: var(--warning-color);
+    }
+
+    .text-error {
+      color: var(--error-color);
+    }
   </style>
 </head>
 
-<body id="content" class="sapUiBody">
-  
-  <!-- UI5 Component container -->
-  <div
-    data-sap-ui-component
-    data-name="my.company.app"
-    data-id="appComponent"
-    data-settings='{"id":"myApp"}'
-    style="height:100%;"
-  ></div>
+<body>
+  <!-- Main Dashboard -->
+  <div class="app-container">
+    <!-- Side Navigation -->
+    <nav class="side-nav" aria-label="Main navigation">
+      <div class="nav-header">
+        <img src="https://cdn-icons-png.flaticon.com/512/882/882701.png" 
+             alt="Ascend Payments Logo" 
+             class="nav-logo">
+      </div>
+      <ul class="nav-menu">
+        <li>
+          <a class="nav-item active" data-route="dashboard">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Dashboard</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-route="clients">
+            <span class="nav-icon">👥</span>
+            <span class="nav-label">Clients</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-route="transactions">
+            <span class="nav-icon">💳</span>
+            <span class="nav-label">Transactions</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-route="api">
+            <span class="nav-icon">🔧</span>
+            <span class="nav-label">API Management</span>
+          </a>
+        </li>
+        <li>
+          <a class="nav-item" data-route="analytics">
+            <span class="nav-icon">📊</span>
+            <span class="nav-label">Analytics</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
 
-  <!-- Loading Placeholder -->
-  <div id="loadingPlaceholder" style="height:100vh; background:var(--bg-primary); display:flex;">
-    <div class="side-nav" style="padding-top:20px;">
-      <div class="skeleton-loader" style="margin:20px; height:32px;"></div>
-      <div style="padding:0 20px;">
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-        <div class="skeleton-loader" style="width:100%; height:40px; margin-bottom:8px;"></div>
-      </div>
-    </div>
-    
-    <div class="main-content" style="flex:1;">
-      <div class="app-header">
-        <div class="skeleton-loader" style="width:300px; height:32px;"></div>
-      </div>
-      <div class="dashboard-content">
-        <div class="skeleton-loader" style="width:200px; height:28px; margin-bottom:16px;"></div>
-        <div class="cards-grid">
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:60%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:80%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:90%; height:14px; margin-bottom:8px;"></div>
+    <!-- Main Content -->
+    <div class="main-content">
+      <!-- Header -->
+      <header class="app-header">
+        <div class="header-content">
+          <div class="header-titles">
+            <h1>Ascend Payments Platform</h1>
+            <p>Enterprise SaaS Payment Gateway Dashboard</p>
           </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:70%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:85%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:75%; height:14px; margin-bottom:8px;"></div>
-          </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:50%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:95%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:70%; height:14px; margin-bottom:8px;"></div>
-          </div>
-          <div class="skeleton-loader" style="height:120px;">
-            <div class="skeleton-loader" style="width:65%; height:20px; margin-bottom:12px;"></div>
-            <div class="skeleton-loader" style="width:88%; height:14px; margin-bottom:8px;"></div>
-            <div class="skeleton-loader" style="width:82%; height:14px; margin-bottom:8px;"></div>
+          <div class="user-menu">
+            <div class="user-avatar">AP</div>
           </div>
         </div>
-      </div>
-    </div>
-  </div>
+      </header>
 
-  <!-- Fallback Dashboard with Mock Data -->
-  <div id="fallbackDashboard" style="display:none; height:100vh;">
-    <div class="app-container">
-      <!-- Side Navigation -->
-      <nav class="side-nav" aria-label="Main navigation">
-        <div class="nav-header">
-          <img src="https://cdn-icons-png.flaticon.com/512/882/882701.png" 
-               alt="Ascend Payments Logo" 
-               class="nav-logo">
+      <!-- Dashboard Content -->
+      <main class="dashboard-content">
+        <div class="content-header">
+          <h2>Platform Overview</h2>
+          <p>Monitor your payment gateway performance and client activities in real-time.</p>
         </div>
-        <ul class="nav-menu">
-          <li>
-            <a href="#" class="nav-item active">
-              <span class="nav-icon">🏠</span>
-              <span class="nav-label">Dashboard</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-item">
-              <span class="nav-icon">👥</span>
-              <span class="nav-label">Clients</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-item">
-              <span class="nav-icon">💳</span>
-              <span class="nav-label">Transactions</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-item">
-              <span class="nav-icon">🔧</span>
-              <span class="nav-label">API Management</span>
-            </a>
-          </li>
-          <li>
-            <a href="#" class="nav-item">
-              <span class="nav-icon">📊</span>
-              <span class="nav-label">Analytics</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
 
-      <!-- Main Content -->
-      <div class="main-content">
-        <!-- Header -->
-        <header class="app-header">
-          <div class="header-content">
-            <div class="header-titles">
-              <h1>Ascend Payments Platform</h1>
-              <p>Enterprise SaaS Payment Gateway Dashboard</p>
-            </div>
-            <div class="user-menu">
-              <div class="user-avatar">AP</div>
-            </div>
+        <!-- Metrics Cards Grid -->
+        <div id="metricsCardsContainer" class="cards-grid">
+          <!-- Metrics cards will be injected by JavaScript -->
+        </div>
+
+        <!-- Recent Activity Section -->
+        <div class="dashboard-section">
+          <h3>Recent Client Onboarding</h3>
+          <div id="activityListContainer" class="activity-list">
+            <!-- Activity items will be injected by JavaScript -->
           </div>
-        </header>
+        </div>
 
-        <!-- Dashboard Content -->
-        <main class="dashboard-content">
-          <div class="content-header">
-            <h2>Platform Overview</h2>
-            <p>Monitor your payment gateway performance and client activities in real-time.</p>
+        <!-- System Health Section -->
+        <div class="dashboard-section">
+          <h3>System Health & Monitoring</h3>
+          <div id="healthStatusContainer" class="health-grid">
+            <!-- Health status items will be injected by JavaScript -->
           </div>
+        </div>
+      </main>
 
-          <!-- Cards Grid -->
-          <div class="cards-grid">
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>👥</p></div>
-                 &nbsp;<h3 class="card-title">Active Clients</h3> 
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">42</div>
-                  <div class="metric-label">SaaS Companies</div>
-                  <div class="metric-trend positive">
-                    <span>+12% this month</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Enterprise:</span>
-                    <span class="breakdown-value">8 clients</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Growth:</span>
-                    <span class="breakdown-value">24 clients</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Startup:</span>
-                    <span class="breakdown-value">10 clients</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>💳</p></div>
-                &nbsp;<h3 class="card-title">Transaction Volume</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">$2.8M</div>
-                  <div class="metric-label">Monthly Processed</div>
-                  <div class="metric-trend positive">
-                    <span>+18% from last month</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Success Rate:</span>
-                    <span class="breakdown-value success">99.2%</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Avg Transaction:</span>
-                    <span class="breakdown-value">$89.50</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Chargebacks:</span>
-                    <span class="breakdown-value warning">0.03%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>🔧</p></div>
-                &nbsp;<h3 class="card-title">API Performance</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">99.98%</div>
-                  <div class="metric-label">Uptime</div>
-                  <div class="metric-trend positive">
-                    <span>Stable</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Avg Response:</span>
-                    <span class="breakdown-value success">142ms</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">API Calls Today:</span>
-                    <span class="breakdown-value">284,567</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Error Rate:</span>
-                    <span class="breakdown-value success">0.02%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="dashboard-card">
-              <div class="card-header">
-                <div class="card-icon"><p>💰</p></div>
-                &nbsp;<h3 class="card-title">Revenue Metrics</h3>
-              </div>
-              <div class="card-content">
-                <div class="metric-display">
-                  <div class="metric-value">$84,200</div>
-                  <div class="metric-label">Monthly Revenue</div>
-                  <div class="metric-trend positive">
-                    <span>+22% growth</span>
-                  </div>
-                </div>
-                <div class="metric-breakdown">
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Platform Fees:</span>
-                    <span class="breakdown-value">$42,800</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">Transaction Fees:</span>
-                    <span class="breakdown-value">$41,400</span>
-                  </div>
-                  <div class="breakdown-item">
-                    <span class="breakdown-label">MRR Growth:</span>
-                    <span class="breakdown-value success">15.2%</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Recent Activity Section -->
-          <div class="dashboard-section">
-            <h3>Recent Client Onboarding</h3>
-            <div class="activity-list">
-              <div class="activity-item">
-                <div class="activity-icon success">✓</div>
-                <div class="activity-content">
-                  <div class="activity-title">TechFlow SaaS</div>
-                  <div class="activity-description">Enterprise plan - $50K MRR</div>
-                  <div class="activity-time">2 hours ago</div>
-                </div>
-                <div class="activity-badge enterprise">Enterprise</div>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-icon success">✓</div>
-                <div class="activity-content">
-                  <div class="activity-title">DataSphere Analytics</div>
-                  <div class="activity-description">Growth plan - $25K MRR</div>
-                  <div class="activity-time">5 hours ago</div>
-                </div>
-                <div class="activity-badge growth">Growth</div>
-              </div>
-              
-              <div class="activity-item">
-                <div class="activity-icon pending">⏳</div>
-                <div class="activity-content">
-                  <div class="activity-title">CloudSecure API</div>
-                  <div class="activity-description">Underwriting in progress</div>
-                  <div class="activity-time">Yesterday</div>
-                </div>
-                <div class="activity-badge startup">Startup</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- System Health Section -->
-          <div class="dashboard-section">
-            <h3>System Health & Monitoring</h3>
-            <div class="health-grid">
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Payment Processing</div>
-                  <div class="health-metric">All systems operational</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Subscription Engine</div>
-                  <div class="health-metric">Processing 1,245 renewals/hour</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status warning"></div>
-                <div class="health-info">
-                  <div class="health-title">3D Secure Service</div>
-                  <div class="health-metric">Elevated latency in EU region</div>
-                </div>
-              </div>
-              <div class="health-item">
-                <div class="health-status success"></div>
-                <div class="health-info">
-                  <div class="health-title">Fraud Detection</div>
-                  <div class="health-metric">Blocked 23 suspicious transactions</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </main>
-
-        <!-- Footer -->
-        <footer class="app-footer">
-          Ascend Payments Platform • Live Demo Mode • v1.0.0
-        </footer>
-      </div>
+      <!-- Footer -->
+      <footer class="app-footer">
+        Ascend Payments Platform • Live Demo Mode • v1.0.0
+      </footer>
     </div>
   </div>
 
   <script>
-    // ===== DASHBOARD MODULE =====
-    const DashboardModule = {
-      // Configuration
-      config: {
-        ui5LoadTimeout: 3000,
-        refreshInterval: 30000
+    // ===== DATA SERVICE MODULE =====
+    const DataService = {
+      endpoints: {
+        metrics: '/api/v1/metrics',
+        activities: '/api/v1/activities',
+        health: '/api/v1/health',
+        clients: '/api/v1/clients'
       },
 
-      // Mock Data Repository
-      data: {
-        clients: {
-          total: 42,
-          enterprise: 8,
-          growth: 24,
-          startup: 10,
-          trend: '+12%'
-        },
-        transactions: {
-          volume: '$2.8M',
-          successRate: '99.2%',
-          avgTransaction: '$89.50',
-          chargebacks: '0.03%',
-          trend: '+18%'
-        },
-        api: {
-          uptime: '99.98%',
-          responseTime: '142ms',
-          callsToday: '284,567',
-          errorRate: '0.02%',
-          status: 'Stable'
-        },
-        revenue: {
-          monthly: '$84,200',
-          platformFees: '$42,800',
-          transactionFees: '$41,400',
-          growthRate: '15.2%',
-          trend: '+22%'
-        },
-        activities: [
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer demo-token'
+      },
+
+      async fetchMetrics() {
+        try {
+          // Simulate API call delay
+          await new Promise(resolve => setTimeout(resolve, 800));
+          return this.getMockMetrics();
+        } catch (error) {
+          console.warn('API call failed, using mock data:', error);
+          return this.getMockMetrics();
+        }
+      },
+
+      async fetchActivities() {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 600));
+          return this.getMockActivities();
+        } catch (error) {
+          console.warn('API call failed, using mock data:', error);
+          return this.getMockActivities();
+        }
+      },
+
+      async fetchHealthStatus() {
+        try {
+          await new Promise(resolve => setTimeout(resolve, 400));
+          return this.getMockHealthStatus();
+        } catch (error) {
+          console.warn('API call failed, using mock data:', error);
+          return this.getMockHealthStatus();
+        }
+      },
+
+      getMockMetrics() {
+        return {
+          clients: {
+            total: 42 + Math.floor(Math.random() * 5),
+            enterprise: 8,
+            growth: 24,
+            startup: 10,
+            trend: '+12%'
+          },
+          transactions: {
+            volume: `$${(2.5 + Math.random() * 0.5).toFixed(1)}M`,
+            successRate: `${(98.5 + Math.random() * 1.5).toFixed(1)}%`,
+            avgTransaction: `$${(85 + Math.random() * 10).toFixed(2)}`,
+            chargebacks: `${(0.02 + Math.random() * 0.02).toFixed(2)}%`,
+            trend: '+18%'
+          },
+          api: {
+            uptime: '99.98%',
+            responseTime: `${(130 + Math.random() * 20).toFixed(0)}ms`,
+            callsToday: (280000 + Math.floor(Math.random() * 10000)).toLocaleString(),
+            errorRate: '0.02%',
+            status: 'Stable'
+          },
+          revenue: {
+            monthly: `$${(82000 + Math.random() * 5000).toLocaleString()}`,
+            platformFees: `$${(42000 + Math.random() * 2000).toLocaleString()}`,
+            transactionFees: `$${(40000 + Math.random() * 3000).toLocaleString()}`,
+            growthRate: `${(14 + Math.random() * 2).toFixed(1)}%`,
+            trend: '+22%'
+          }
+        };
+      },
+
+      getMockActivities() {
+        const activities = [
           {
+            id: 1,
             client: 'TechFlow SaaS',
             plan: 'Enterprise plan - $50K MRR',
             time: '2 hours ago',
@@ -921,6 +758,7 @@
             tier: 'enterprise'
           },
           {
+            id: 2,
             client: 'DataSphere Analytics',
             plan: 'Growth plan - $25K MRR',
             time: '5 hours ago',
@@ -928,14 +766,34 @@
             tier: 'growth'
           },
           {
+            id: 3,
             client: 'CloudSecure API',
             plan: 'Underwriting in progress',
             time: 'Yesterday',
             status: 'pending',
             tier: 'startup'
           }
-        ],
-        systemHealth: [
+        ];
+
+        // Occasionally add a new activity
+        if (Math.random() > 0.7) {
+          const newClient = `NewClient${Math.floor(Math.random() * 100)}`;
+          const tiers = ['startup', 'growth', 'enterprise'];
+          activities.unshift({
+            id: Date.now(),
+            client: newClient,
+            plan: 'Signup completed',
+            time: 'Just now',
+            status: 'success',
+            tier: tiers[Math.floor(Math.random() * 3)]
+          });
+        }
+
+        return activities;
+      },
+
+      getMockHealthStatus() {
+        return [
           {
             service: 'Payment Processing',
             status: 'success',
@@ -944,118 +802,893 @@
           {
             service: 'Subscription Engine',
             status: 'success',
-            metric: 'Processing 1,245 renewals/hour'
+            metric: `Processing ${(1200 + Math.floor(Math.random() * 100)).toLocaleString()} renewals/hour`
           },
           {
             service: '3D Secure Service',
-            status: 'warning',
-            metric: 'Elevated latency in EU region'
+            status: Math.random() > 0.8 ? 'warning' : 'success',
+            metric: Math.random() > 0.8 ? 'Elevated latency in EU region' : 'All regions operational'
           },
           {
             service: 'Fraud Detection',
             status: 'success',
-            metric: 'Blocked 23 suspicious transactions'
+            metric: `Blocked ${(20 + Math.floor(Math.random() * 10))} suspicious transactions`
           }
-        ]
-      },
-
-      // Initialize the dashboard
-      init() {
-        this.checkUI5Component();
-        this.setupEventListeners();
-      },
-
-      // Check if UI5 component loaded successfully
-      checkUI5Component() {
-        setTimeout(() => {
-          const container = document.querySelector('[data-sap-ui-component]');
-          const placeholder = document.getElementById('loadingPlaceholder');
-          const fallback = document.getElementById('fallbackDashboard');
-          
-          if (!container || container.innerHTML.trim() === '') {
-            placeholder.style.display = 'none';
-            fallback.style.display = 'block';
-            this.startDataRefresh();
-          }
-        }, this.config.ui5LoadTimeout);
-      },
-
-      // Setup event listeners for interactive elements
-      setupEventListeners() {
-        // Navigation click handlers
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.nav-item')) {
-            e.preventDefault();
-            this.handleNavigation(e.target.closest('.nav-item'));
-          }
-        });
-
-        // Card interaction handlers
-        document.addEventListener('click', (e) => {
-          if (e.target.closest('.dashboard-card')) {
-            this.handleCardInteraction(e.target.closest('.dashboard-card'));
-          }
-        });
-      },
-
-      // Handle navigation clicks
-      handleNavigation(navItem) {
-        // Remove active class from all nav items
-        document.querySelectorAll('.nav-item').forEach(item => {
-          item.classList.remove('active');
-        });
-        
-        // Add active class to clicked item
-        navItem.classList.add('active');
-        
-        // Here you would typically load the corresponding module
-        console.log('Navigating to:', navItem.querySelector('.nav-label').textContent);
-      },
-
-      // Handle card interactions
-      handleCardInteraction(card) {
-        const title = card.querySelector('.card-title').textContent;
-        console.log('Card clicked:', title);
-        
-        // Add visual feedback
-        card.style.transform = 'scale(0.98)';
-        setTimeout(() => {
-          card.style.transform = '';
-        }, 150);
-      },
-
-      // Start periodic data refresh
-      startDataRefresh() {
-        setInterval(() => {
-          this.refreshMockData();
-        }, this.config.refreshInterval);
-      },
-
-      // Refresh mock data (simulate real-time updates)
-      refreshMockData() {
-        // Simulate data updates
-        this.data.transactions.volume = this.generateRandomAmount(2.5, 3.0);
-        this.data.api.callsToday = this.generateRandomNumber(250000, 300000).toLocaleString();
-        
-        console.log('Data refreshed at:', new Date().toLocaleTimeString());
-      },
-
-      // Utility function to generate random amounts
-      generateRandomAmount(min, max) {
-        const amount = (Math.random() * (max - min) + min).toFixed(1);
-        return `$${amount}M`;
-      },
-
-      // Utility function to generate random numbers
-      generateRandomNumber(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
+        ];
       }
     };
 
-    // Initialize the dashboard when DOM is loaded
-    document.addEventListener('DOMContentLoaded', () => {
-      DashboardModule.init();
-    });
+    // ===== METRICS CARDS COMPONENT =====
+    const MetricsCardsComponent = {
+      container: null,
+      currentData: null,
+
+      async init(containerId) {
+        this.container = document.getElementById(containerId);
+        
+        if (!this.container) {
+          console.error('Metrics cards container not found:', containerId);
+          return;
+        }
+
+        this.renderLoading();
+        console.log('✅ MetricsCardsComponent initialized');
+      },
+
+      render(data) {
+        this.currentData = data;
+        
+        if (!data) {
+          this.renderError('No data available');
+          return;
+        }
+
+        try {
+          const html = this.generateMetricsHTML(data);
+          this.container.innerHTML = html;
+          this.attachEventListeners();
+          
+        } catch (error) {
+          console.error('Error rendering metrics cards:', error);
+          this.renderError('Failed to render metrics');
+        }
+      },
+
+      update(data) {
+        if (!this.currentData) {
+          this.render(data);
+          return;
+        }
+
+        this.currentData = data;
+        
+        Object.keys(data).forEach(metricType => {
+          const card = this.container.querySelector(`[data-metric="${metricType}"]`);
+          if (card) {
+            this.updateCard(card, data[metricType], metricType);
+          }
+        });
+      },
+
+      updateCard(card, data, metricType) {
+        const valueElement = card.querySelector('.metric-value');
+        const trendElement = card.querySelector('.metric-trend');
+        
+        if (valueElement) {
+          valueElement.textContent = this.getPrimaryValue(data, metricType);
+        }
+        
+        if (trendElement && data.trend) {
+          trendElement.textContent = data.trend;
+        }
+        
+        this.updateBreakdown(card, data, metricType);
+        
+        card.style.animation = 'highlight 1s ease';
+        setTimeout(() => card.style.animation = '', 1000);
+      },
+
+      updateBreakdown(card, data, metricType) {
+        const breakdownContainer = card.querySelector('.metric-breakdown');
+        if (!breakdownContainer) return;
+
+        const breakdownHTML = this.generateBreakdownHTML(data, metricType);
+        breakdownContainer.innerHTML = breakdownHTML;
+      },
+
+      generateMetricsHTML(data) {
+        const { clients, transactions, api, revenue } = data;
+        
+        return `
+          <div class="dashboard-card" data-metric="clients">
+            <div class="card-header">
+              <div class="card-icon">👥</div>
+              <h3 class="card-title">Active Clients</h3>
+            </div>
+            <div class="card-content">
+              <div class="metric-display">
+                <div class="metric-value">${clients.total}</div>
+                <div class="metric-label">SaaS Companies</div>
+                <div class="metric-trend positive">
+                  <span>${clients.trend}</span>
+                </div>
+              </div>
+              <div class="metric-breakdown">
+                ${this.generateBreakdownHTML(clients, 'clients')}
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card" data-metric="transactions">
+            <div class="card-header">
+              <div class="card-icon">💳</div>
+              <h3 class="card-title">Transaction Volume</h3>
+            </div>
+            <div class="card-content">
+              <div class="metric-display">
+                <div class="metric-value">${transactions.volume}</div>
+                <div class="metric-label">Monthly Processed</div>
+                <div class="metric-trend positive">
+                  <span>${transactions.trend}</span>
+                </div>
+              </div>
+              <div class="metric-breakdown">
+                ${this.generateBreakdownHTML(transactions, 'transactions')}
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card" data-metric="api">
+            <div class="card-header">
+              <div class="card-icon">🔧</div>
+              <h3 class="card-title">API Performance</h3>
+            </div>
+            <div class="card-content">
+              <div class="metric-display">
+                <div class="metric-value">${api.uptime}</div>
+                <div class="metric-label">Uptime</div>
+                <div class="metric-trend positive">
+                  <span>${api.status}</span>
+                </div>
+              </div>
+              <div class="metric-breakdown">
+                ${this.generateBreakdownHTML(api, 'api')}
+              </div>
+            </div>
+          </div>
+
+          <div class="dashboard-card" data-metric="revenue">
+            <div class="card-header">
+              <div class="card-icon">💰</div>
+              <h3 class="card-title">Revenue Metrics</h3>
+            </div>
+            <div class="card-content">
+              <div class="metric-display">
+                <div class="metric-value">${revenue.monthly}</div>
+                <div class="metric-label">Monthly Revenue</div>
+                <div class="metric-trend positive">
+                  <span>${revenue.trend}</span>
+                </div>
+              </div>
+              <div class="metric-breakdown">
+                ${this.generateBreakdownHTML(revenue, 'revenue')}
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      generateBreakdownHTML(data, type) {
+        switch (type) {
+          case 'clients':
+            return `
+              <div class="breakdown-item">
+                <span class="breakdown-label">Enterprise:</span>
+                <span class="breakdown-value">${data.enterprise} clients</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Growth:</span>
+                <span class="breakdown-value">${data.growth} clients</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Startup:</span>
+                <span class="breakdown-value">${data.startup} clients</span>
+              </div>
+            `;
+          
+          case 'transactions':
+            return `
+              <div class="breakdown-item">
+                <span class="breakdown-label">Success Rate:</span>
+                <span class="breakdown-value success">${data.successRate}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Avg Transaction:</span>
+                <span class="breakdown-value">${data.avgTransaction}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Chargebacks:</span>
+                <span class="breakdown-value warning">${data.chargebacks}</span>
+              </div>
+            `;
+          
+          case 'api':
+            return `
+              <div class="breakdown-item">
+                <span class="breakdown-label">Avg Response:</span>
+                <span class="breakdown-value success">${data.responseTime}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">API Calls Today:</span>
+                <span class="breakdown-value">${data.callsToday}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Error Rate:</span>
+                <span class="breakdown-value success">${data.errorRate}</span>
+              </div>
+            `;
+          
+          case 'revenue':
+            return `
+              <div class="breakdown-item">
+                <span class="breakdown-label">Platform Fees:</span>
+                <span class="breakdown-value">${data.platformFees}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">Transaction Fees:</span>
+                <span class="breakdown-value">${data.transactionFees}</span>
+              </div>
+              <div class="breakdown-item">
+                <span class="breakdown-label">MRR Growth:</span>
+                <span class="breakdown-value success">${data.growthRate}</span>
+              </div>
+            `;
+          
+          default:
+            return '';
+        }
+      },
+
+      getPrimaryValue(data, type) {
+        const valueMap = {
+          clients: data.total,
+          transactions: data.volume,
+          api: data.uptime,
+          revenue: data.monthly
+        };
+        
+        return valueMap[type] || 'N/A';
+      },
+
+      renderLoading() {
+        this.container.innerHTML = `
+          <div class="dashboard-card">
+            <div class="skeleton-loader" style="height: 120px;">
+              <div class="skeleton-loader" style="width: 60%; height: 20px; margin-bottom: 12px;"></div>
+              <div class="skeleton-loader" style="width: 80%; height: 14px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 90%; height: 14px; margin-bottom: 8px;"></div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="skeleton-loader" style="height: 120px;">
+              <div class="skeleton-loader" style="width: 70%; height: 20px; margin-bottom: 12px;"></div>
+              <div class="skeleton-loader" style="width: 85%; height: 14px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 75%; height: 14px; margin-bottom: 8px;"></div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="skeleton-loader" style="height: 120px;">
+              <div class="skeleton-loader" style="width: 50%; height: 20px; margin-bottom: 12px;"></div>
+              <div class="skeleton-loader" style="width: 95%; height: 14px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 70%; height: 14px; margin-bottom: 8px;"></div>
+            </div>
+          </div>
+          <div class="dashboard-card">
+            <div class="skeleton-loader" style="height: 120px;">
+              <div class="skeleton-loader" style="width: 65%; height: 20px; margin-bottom: 12px;"></div>
+              <div class="skeleton-loader" style="width: 88%; height: 14px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 82%; height: 14px; margin-bottom: 8px;"></div>
+            </div>
+          </div>
+        `;
+      },
+
+      renderError(message) {
+        this.container.innerHTML = `
+          <div class="dashboard-card">
+            <div class="card-content text-center">
+              <div style="padding: 20px; color: var(--error-color);">
+                <p>📊</p>
+                <p>${message}</p>
+              </div>
+            </div>
+          </div>
+        `;
+      },
+
+      attachEventListeners() {
+        const cards = this.container.querySelectorAll('.dashboard-card');
+        
+        cards.forEach(card => {
+          card.addEventListener('click', () => {
+            const metricType = card.getAttribute('data-metric');
+            this.handleCardClick(metricType, this.currentData[metricType]);
+          });
+        });
+      },
+
+      handleCardClick(metricType, data) {
+        console.log(`Card clicked: ${metricType}`, data);
+        const card = this.container.querySelector(`[data-metric="${metricType}"]`);
+        card.style.transform = 'scale(0.98)';
+        setTimeout(() => card.style.transform = '', 150);
+      }
+    };
+
+    // ===== ACTIVITY LIST COMPONENT =====
+    const ActivityListComponent = {
+      container: null,
+      currentActivities: [],
+
+      async init(containerId) {
+        this.container = document.getElementById(containerId);
+        
+        if (!this.container) {
+          console.error('Activity list container not found:', containerId);
+          return;
+        }
+
+        this.renderLoading();
+        console.log('✅ ActivityListComponent initialized');
+      },
+
+      render(activities) {
+        this.currentActivities = activities;
+        
+        if (!activities || !Array.isArray(activities)) {
+          this.renderError('No activity data available');
+          return;
+        }
+
+        try {
+          const html = this.generateActivitiesHTML(activities);
+          this.container.innerHTML = html;
+          this.attachEventListeners();
+          
+        } catch (error) {
+          console.error('Error rendering activities:', error);
+          this.renderError('Failed to load activities');
+        }
+      },
+
+      update(activities) {
+        if (!this.currentActivities) {
+          this.render(activities);
+          return;
+        }
+
+        const newActivities = this.findNewActivities(activities, this.currentActivities);
+        
+        if (newActivities.length > 0) {
+          this.addNewActivitiesWithAnimation(newActivities);
+        }
+
+        this.currentActivities = activities;
+      },
+
+      findNewActivities(newActivities, currentActivities) {
+        const currentIds = new Set(currentActivities.map(activity => activity.id));
+        return newActivities.filter(activity => !currentIds.has(activity.id));
+      },
+
+      addNewActivitiesWithAnimation(newActivities) {
+        newActivities.forEach(activity => {
+          const activityHTML = this.generateActivityHTML(activity);
+          const tempDiv = document.createElement('div');
+          tempDiv.innerHTML = activityHTML;
+          const newElement = tempDiv.firstChild;
+          
+          newElement.style.opacity = '0';
+          newElement.style.transform = 'translateY(-20px)';
+          
+          this.container.insertBefore(newElement, this.container.firstChild);
+          
+          setTimeout(() => {
+            newElement.style.transition = 'all 0.3s ease';
+            newElement.style.opacity = '1';
+            newElement.style.transform = 'translateY(0)';
+          }, 10);
+        });
+
+        const allActivities = this.container.querySelectorAll('.activity-item');
+        if (allActivities.length > 10) {
+          for (let i = 10; i < allActivities.length; i++) {
+            allActivities[i].remove();
+          }
+        }
+      },
+
+      generateActivitiesHTML(activities) {
+        if (activities.length === 0) {
+          return `
+            <div class="activity-item">
+              <div class="text-center" style="padding: 20px; color: var(--text-muted);">
+                <p>No recent activities</p>
+              </div>
+            </div>
+          `;
+        }
+
+        return activities.map(activity => this.generateActivityHTML(activity)).join('');
+      },
+
+      generateActivityHTML(activity) {
+        const statusIcon = activity.status === 'success' ? '✓' : '⏳';
+        const statusClass = activity.status === 'success' ? 'success' : 'pending';
+        
+        return `
+          <div class="activity-item" data-activity-id="${activity.id}">
+            <div class="activity-icon ${statusClass}">${statusIcon}</div>
+            <div class="activity-content">
+              <div class="activity-title">${this.escapeHTML(activity.client)}</div>
+              <div class="activity-description">${this.escapeHTML(activity.plan)}</div>
+              <div class="activity-time">${this.escapeHTML(activity.time)}</div>
+            </div>
+            <div class="activity-badge ${activity.tier}">${this.formatTier(activity.tier)}</div>
+          </div>
+        `;
+      },
+
+      formatTier(tier) {
+        const tierMap = {
+          enterprise: 'Enterprise',
+          growth: 'Growth',
+          startup: 'Startup'
+        };
+        return tierMap[tier] || tier;
+      },
+
+      escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      },
+
+      renderLoading() {
+        this.container.innerHTML = `
+          <div class="activity-item">
+            <div class="skeleton-loader" style="width: 32px; height: 32px; border-radius: 50%;"></div>
+            <div class="activity-content">
+              <div class="skeleton-loader" style="width: 120px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 180px; height: 14px; margin-bottom: 6px;"></div>
+              <div class="skeleton-loader" style="width: 80px; height: 12px;"></div>
+            </div>
+            <div class="skeleton-loader" style="width: 60px; height: 20px; border-radius: 12px;"></div>
+          </div>
+        `;
+      },
+
+      renderError(message) {
+        this.container.innerHTML = `
+          <div class="activity-item">
+            <div class="text-center" style="padding: 20px; color: var(--error-color);">
+              <p>⚠️</p>
+              <p>${message}</p>
+            </div>
+          </div>
+        `;
+      },
+
+      attachEventListeners() {
+        const activityItems = this.container.querySelectorAll('.activity-item');
+        
+        activityItems.forEach(item => {
+          item.addEventListener('click', () => {
+            const activityId = item.getAttribute('data-activity-id');
+            const activity = this.currentActivities.find(a => a.id == activityId);
+            this.handleActivityClick(activity);
+          });
+        });
+      },
+
+      handleActivityClick(activity) {
+        console.log('Activity clicked:', activity);
+        const item = this.container.querySelector(`[data-activity-id="${activity.id}"]`);
+        item.style.backgroundColor = 'var(--bg-tertiary)';
+        setTimeout(() => item.style.backgroundColor = '', 300);
+      }
+    };
+
+    // ===== HEALTH STATUS COMPONENT =====
+    const HealthStatusComponent = {
+      container: null,
+      currentStatus: [],
+
+      async init(containerId) {
+        this.container = document.getElementById(containerId);
+        
+        if (!this.container) {
+          console.error('Health status container not found:', containerId);
+          return;
+        }
+
+        this.renderLoading();
+        console.log('✅ HealthStatusComponent initialized');
+      },
+
+      render(healthStatus) {
+        this.currentStatus = healthStatus;
+        
+        if (!healthStatus || !Array.isArray(healthStatus)) {
+          this.renderError('No health status data available');
+          return;
+        }
+
+        try {
+          const html = this.generateHealthHTML(healthStatus);
+          this.container.innerHTML = html;
+          this.attachEventListeners();
+          
+        } catch (error) {
+          console.error('Error rendering health status:', error);
+          this.renderError('Failed to load health status');
+        }
+      },
+
+      update(healthStatus) {
+        if (!this.currentStatus) {
+          this.render(healthStatus);
+          return;
+        }
+
+        this.currentStatus = healthStatus;
+        
+        healthStatus.forEach((status) => {
+          const healthItem = this.container.querySelector(`[data-service="${this.slugify(status.service)}"]`);
+          if (healthItem) {
+            this.updateHealthItem(healthItem, status);
+          }
+        });
+      },
+
+      updateHealthItem(healthItem, status) {
+        const statusElement = healthItem.querySelector('.health-status');
+        const metricElement = healthItem.querySelector('.health-metric');
+        
+        if (statusElement) {
+          statusElement.className = `health-status ${status.status}`;
+        }
+        
+        if (metricElement) {
+          metricElement.textContent = status.metric;
+        }
+        
+        const currentStatus = healthItem.getAttribute('data-status');
+        if (currentStatus !== status.status) {
+          healthItem.style.animation = 'pulse 0.5s ease';
+          setTimeout(() => healthItem.style.animation = '', 500);
+          healthItem.setAttribute('data-status', status.status);
+        }
+      },
+
+      generateHealthHTML(healthStatus) {
+        return healthStatus.map(status => this.generateHealthItemHTML(status)).join('');
+      },
+
+      generateHealthItemHTML(status) {
+        return `
+          <div class="health-item" data-service="${this.slugify(status.service)}" data-status="${status.status}">
+            <div class="health-status ${status.status}"></div>
+            <div class="health-info">
+              <div class="health-title">${this.escapeHTML(status.service)}</div>
+              <div class="health-metric">${this.escapeHTML(status.metric)}</div>
+            </div>
+          </div>
+        `;
+      },
+
+      slugify(text) {
+        return text.toLowerCase().replace(/[^\w]+/g, '-');
+      },
+
+      escapeHTML(str) {
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
+      },
+
+      renderLoading() {
+        this.container.innerHTML = `
+          <div class="health-item">
+            <div class="skeleton-loader" style="width: 12px; height: 12px; border-radius: 50%;"></div>
+            <div class="health-info">
+              <div class="skeleton-loader" style="width: 120px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 180px; height: 14px;"></div>
+            </div>
+          </div>
+          <div class="health-item">
+            <div class="skeleton-loader" style="width: 12px; height: 12px; border-radius: 50%;"></div>
+            <div class="health-info">
+              <div class="skeleton-loader" style="width: 120px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 180px; height: 14px;"></div>
+            </div>
+          </div>
+          <div class="health-item">
+            <div class="skeleton-loader" style="width: 12px; height: 12px; border-radius: 50%;"></div>
+            <div class="health-info">
+              <div class="skeleton-loader" style="width: 120px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 180px; height: 14px;"></div>
+            </div>
+          </div>
+          <div class="health-item">
+            <div class="skeleton-loader" style="width: 12px; height: 12px; border-radius: 50%;"></div>
+            <div class="health-info">
+              <div class="skeleton-loader" style="width: 120px; height: 16px; margin-bottom: 8px;"></div>
+              <div class="skeleton-loader" style="width: 180px; height: 14px;"></div>
+            </div>
+          </div>
+        `;
+      },
+
+      renderError(message) {
+        this.container.innerHTML = `
+          <div class="health-item">
+            <div class="text-center" style="padding: 20px; color: var(--error-color);">
+              <p>🔄</p>
+              <p>${message}</p>
+            </div>
+          </div>
+        `;
+      },
+
+      attachEventListeners() {
+        const healthItems = this.container.querySelectorAll('.health-item');
+        
+        healthItems.forEach(item => {
+          item.addEventListener('click', () => {
+            const service = item.getAttribute('data-service');
+            const status = this.currentStatus.find(s => this.slugify(s.service) === service);
+            this.handleHealthItemClick(status);
+          });
+        });
+      },
+
+      handleHealthItemClick(status) {
+        console.log('Health item clicked:', status);
+        const item = this.container.querySelector(`[data-service="${this.slugify(status.service)}"]`);
+        item.style.transform = 'scale(0.98)';
+        setTimeout(() => item.style.transform = '', 150);
+      }
+    };
+
+    // ===== MAIN APPLICATION =====
+    const App = {
+      config: {
+        refreshInterval: 15000, // 15 seconds
+        criticalRefreshInterval: 10000 // 10 seconds
+      },
+
+      state: {
+        isLoading: false,
+        lastUpdate: null
+      },
+
+      async init() {
+        try {
+          console.log('🚀 Initializing Ascend Payments Platform...');
+          
+          await this.initializeComponents();
+          this.setupEventListeners();
+          await this.loadInitialData();
+          this.startBackgroundUpdates();
+          
+          console.log('✅ Application initialized successfully');
+          
+        } catch (error) {
+          console.error('❌ Application initialization failed:', error);
+          this.handleError(error);
+        }
+      },
+
+      async initializeComponents() {
+        await MetricsCardsComponent.init('metricsCardsContainer');
+        await ActivityListComponent.init('activityListContainer');
+        await HealthStatusComponent.init('healthStatusContainer');
+      },
+
+      setupEventListeners() {
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item[data-route]');
+        navItems.forEach(item => {
+          item.addEventListener('click', (e) => {
+            e.preventDefault();
+            const route = item.getAttribute('data-route');
+            this.handleNavigation(route, item);
+          });
+        });
+
+        // Global error handling
+        window.addEventListener('error', this.handleGlobalError.bind(this));
+        window.addEventListener('unhandledrejection', this.handlePromiseRejection.bind(this));
+      },
+
+      handleNavigation(route, clickedItem) {
+        console.log('Navigating to:', route);
+        
+        // Update active nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+          item.classList.remove('active');
+        });
+        clickedItem.classList.add('active');
+        
+        // Update page title
+        document.title = `${route.charAt(0).toUpperCase() + route.slice(1)} - Ascend Payments`;
+        
+        // Show notification for non-dashboard routes
+        if (route !== 'dashboard') {
+          this.showNotification(`${route} view coming soon!`, 'info');
+        }
+      },
+
+      async loadInitialData() {
+        this.state.isLoading = true;
+        
+        try {
+          const [metrics, activities, health] = await Promise.all([
+            DataService.fetchMetrics(),
+            DataService.fetchActivities(),
+            DataService.fetchHealthStatus()
+          ]);
+
+          MetricsCardsComponent.render(metrics);
+          ActivityListComponent.render(activities);
+          HealthStatusComponent.render(health);
+
+          this.state.lastUpdate = new Date();
+          this.state.isLoading = false;
+
+          console.log('📊 Initial data loaded successfully');
+          this.showNotification('Dashboard loaded successfully!', 'success');
+
+        } catch (error) {
+          console.error('Failed to load initial data:', error);
+          this.useMockData();
+          this.state.isLoading = false;
+          this.showNotification('Using demo data - API unavailable', 'warning');
+        }
+      },
+
+      useMockData() {
+        console.warn('Using mock data as fallback');
+        
+        const mockMetrics = DataService.getMockMetrics();
+        const mockActivities = DataService.getMockActivities();
+        const mockHealth = DataService.getMockHealthStatus();
+
+        MetricsCardsComponent.render(mockMetrics);
+        ActivityListComponent.render(mockActivities);
+        HealthStatusComponent.render(mockHealth);
+      },
+
+      startBackgroundUpdates() {
+        // Update data periodically
+        setInterval(async () => {
+          if (!this.state.isLoading && document.visibilityState === 'visible') {
+            await this.refreshData();
+          }
+        }, this.config.refreshInterval);
+
+        // Real-time updates for critical metrics
+        setInterval(() => {
+          if (document.visibilityState === 'visible') {
+            this.refreshCriticalMetrics();
+          }
+        }, this.config.criticalRefreshInterval);
+      },
+
+      async refreshData() {
+        try {
+          const [metrics, activities, health] = await Promise.all([
+            DataService.fetchMetrics(),
+            DataService.fetchActivities(),
+            DataService.fetchHealthStatus()
+          ]);
+
+          MetricsCardsComponent.update(metrics);
+          ActivityListComponent.update(activities);
+          HealthStatusComponent.update(health);
+
+          this.state.lastUpdate = new Date();
+          
+          console.log('🔄 Data updated at:', new Date().toLocaleTimeString());
+
+        } catch (error) {
+          console.warn('Background update failed:', error);
+        }
+      },
+
+      async refreshCriticalMetrics() {
+        try {
+          const metrics = await DataService.fetchMetrics();
+          MetricsCardsComponent.update(metrics);
+        } catch (error) {
+          console.warn('Critical metrics update failed:', error);
+        }
+      },
+
+      showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        const bgColor = type === 'success' ? 'var(--success-color)' : 
+                        type === 'warning' ? 'var(--warning-color)' : 
+                        type === 'error' ? 'var(--error-color)' : 'var(--primary-color)';
+        
+        notification.style.cssText = `
+          position: fixed;
+          top: 20px;
+          right: 20px;
+          background: ${bgColor};
+          color: white;
+          padding: 12px 16px;
+          border-radius: var(--border-radius);
+          z-index: 10000;
+          box-shadow: var(--shadow);
+          max-width: 300px;
+          animation: slideIn 0.3s ease;
+        `;
+        
+        notification.textContent = message;
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+          notification.style.animation = 'slideOut 0.3s ease';
+          setTimeout(() => {
+            if (document.body.contains(notification)) {
+              document.body.removeChild(notification);
+            }
+          }, 300);
+        }, 3000);
+      },
+
+      handleGlobalError(event) {
+        console.error('Global error:', event.error);
+        this.showNotification('An unexpected error occurred', 'error');
+      },
+
+      handlePromiseRejection(event) {
+        console.error('Unhandled promise rejection:', event.reason);
+        this.showNotification('Async operation failed', 'error');
+      },
+
+      handleError(error) {
+        console.error('Application error:', error);
+        this.showNotification(error.message || 'An error occurred', 'error');
+      }
+    };
+
+    // Add slide animations for notifications
+    const notificationStyles = document.createElement('style');
+    notificationStyles.textContent = `
+      @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+      }
+      
+      @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(notificationStyles);
+
+    // Initialize application when DOM is ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => App.init());
+    } else {
+      App.init();
+    }
+
+    // Make app globally accessible
+    window.AscendPaymentsApp = App;
   </script>
 </body>
 </html>
